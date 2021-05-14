@@ -1,0 +1,49 @@
+$bp1: 1920px;
+$bp2: 1280px;
+$bp3: 960px;
+$bp4: 600px;
+
+$cs1: 1600px;
+$cs2: 1024px;
+$cs3: 764px;
+$cs4: 100%;
+
+$size-minimum: 320px;
+
+:root {
+  --bp1: #{$bp1};
+  --bp2: #{$bp2};
+  --bp3: #{$bp3};
+  --bp4: #{$bp4};
+
+  --cs1: #{$cs1};
+  --cs2: #{$cs2};
+  --cs3: #{$cs3};
+  --cs4: #{$cs4};
+
+  --size-minimum: #{$size-minimum};
+}
+
+._container {
+  margin: 0 auto;
+  max-width: var(--cs1);
+  height: 100%;
+}
+
+@media screen and (max-width: $bp2) {
+  ._container {
+    max-width: var(--cs2);
+  }
+}
+
+@media screen and (max-width: $bp3) {
+  ._container {
+    max-width: var(--cs3);
+  }
+}
+
+@media screen and (max-width: $bp4) {
+  ._container {
+    max-width: var(--cs4);
+  }
+}

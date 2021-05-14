@@ -1,0 +1,20 @@
+:root {
+  --main-1: #000e1e;
+  --main-2: #041528;
+  --main-3: #1d2c3d;
+
+  --accent-red: #ed5564;
+  --accent-black: #212735;
+  --accent-white: #d8e3f9;
+  --accent-blue: #4d7cff;
+  --accent-purple: #ac92ed;
+  --accent-pink: #ec87bf;
+  --accent-green: #a0d468;
+  --accent-yellow: #ffc929;
+}
+
+html[data-theme="light"] {
+  --main-1: #eff5ff;
+  --main-2: #ffffff;
+  --main-3: #e0e4e8;
+}

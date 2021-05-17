@@ -7,7 +7,7 @@ import "./style/global/main.scss";
 function App() {
   useEffect(() => {
 
-  });
+  }, []);
 
   return (
     <Providers>

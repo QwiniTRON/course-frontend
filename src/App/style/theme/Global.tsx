@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { createGlobalStyle } from 'styled-components';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
-import { DarkThemeConfig, LightThemeConfig } from './Themes';
-
-
-// overrides
-const GlobalOverride = createGlobalStyle`
-
-`;
+import { DarkThemeConfig, GlobalOverrideDark, GlobalOverrideLight, LightThemeConfig } from './Themes';
 
 
 export const ThemesEnum = {
@@ -52,21 +45,22 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   }
 
 
-  let theme = createMuiTheme(DarkThemeConfig);
+  let theme = DarkThemeConfig;
   if (isDark === false) {
-    theme = createMuiTheme(LightThemeConfig);
+    theme = LightThemeConfig;
   }
+  
+  let Override = GlobalOverrideDark;
+  if (isDark === false) Override = GlobalOverrideLight;
 
   return (
     <AppThemeContext.Provider value={{ toggleTheme: toggleTheme }}>
       <ThemeProvider theme={theme}>
         <StyledThemeProvider theme={theme}>
-          <GlobalOverride />
+          <Override />
           {props.children}
         </StyledThemeProvider>
       </ThemeProvider>
     </AppThemeContext.Provider>
   );
 }
-
-// --some-var-for-override: ${props.theme.some};

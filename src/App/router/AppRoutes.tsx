@@ -10,7 +10,7 @@ type AppRoutesProps = {}
 export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
   return (
     <Switch key="MainSwitch">
-      
+
       {/* Main */}
       <Route {...routeConfig.App}>
         <Secure politic={ByAuth()} key="AppSecure" redirectPath={routeConfig.Login.path}>
@@ -30,4 +30,21 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
   );
 };
 
+
+export const AppSecure: React.FC = (props) => (
+  <Secure {...props} redirectPath={routeConfig.App.path}>
+    {props.children}
+  </Secure>
+);
+
+export const LoginSecure: React.FC = (props) => (
+  <Secure {...props} redirectPath={routeConfig.Login.path}>
+    {props.children}
+  </Secure>
+);
+
 // * -> /(check auth) ?-> /login
+
+// также можно просто скрывать route
+// {ByAuth(user) && <Route></Route>}
+// switch выбирает первого ребёнка с подходящим параметром path

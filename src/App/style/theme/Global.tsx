@@ -11,14 +11,14 @@ export const ThemesEnum = {
 const ThemeLocalstorageKey = "userTheme";
 
 
-type StyleProviderProps = {
+type StyleProviderProps = {}
 
-}
 
 export type ThemeContextProps = {
   toggleTheme: () => string
 }
 export const AppThemeContext = React.createContext<ThemeContextProps>({ toggleTheme: () => "" });
+
 
 export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   const [isDark, setIsDark] = useState(() => localStorage.getItem(ThemeLocalstorageKey) == ThemesEnum.dark);
@@ -44,12 +44,11 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
     return newCurrentTheme;
   }
 
-
   let theme = DarkThemeConfig;
   if (isDark === false) {
     theme = LightThemeConfig;
   }
-  
+
   let Override = GlobalOverrideDark;
   if (isDark === false) Override = GlobalOverrideLight;
 

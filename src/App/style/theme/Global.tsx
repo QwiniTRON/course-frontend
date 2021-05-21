@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
-import { DarkThemeConfig, GlobalOverrideDark, GlobalOverrideLight, LightThemeConfig } from './Themes';
+import { CommonStyles, DarkThemeConfig, GlobalOverrideDark, GlobalOverrideLight, LightThemeConfig } from './Themes';
 
 
 export const ThemesEnum = {
@@ -56,6 +56,7 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
     <AppThemeContext.Provider value={{ toggleTheme: toggleTheme }}>
       <ThemeProvider theme={theme}>
         <StyledThemeProvider theme={theme}>
+          <CommonStyles />
           <Override />
           {props.children}
         </StyledThemeProvider>

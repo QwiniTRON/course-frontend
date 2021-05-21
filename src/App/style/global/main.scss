@@ -8,4 +8,13 @@ html {
 
 body {
   font: var(--body);
+  color: #eff5ff;
+}
+
+html[data-theme="light"] body{
+  color: #212735;
+}
+
+#root {
+  height: 100%;
 }

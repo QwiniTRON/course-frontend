@@ -17,47 +17,51 @@ import {
   backgroundDark2,
   backgroundDark3,
   darkLayout,
-  lightLayout
+  lightLayout,
+  AppThemeColor,
+  LayoutColor,
+  appColors
 } from './ThemeColors';
+import {DefaultTheme} from 'styled-components';
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {
-    accentRed: Palette['primary'];
-    accentBlack: Palette['primary'];
-    accentWhite: Palette['primary'];
-    accentBlue: Palette['primary'];
-    accentPurple: Palette['primary'];
-    accentPink: Palette['primary'];
-    accentGreen: Palette['primary'];
-    accentYellow: Palette['primary'];
-    backgroundLight1: Palette['primary'];
-    backgroundLight2: Palette['primary'];
-    backgroundLight3: Palette['primary'];
-    backgroundDark1: Palette['primary'];
-    backgroundDark2: Palette['primary'];
-    backgroundDark3: Palette['primary'];
-    layout: Palette['primary'];
+    accentRed: AppThemeColor;
+    accentBlack: AppThemeColor;
+    accentWhite: AppThemeColor;
+    accentBlue: AppThemeColor;
+    accentPurple: AppThemeColor;
+    accentPink: AppThemeColor;
+    accentGreen: AppThemeColor;
+    accentYellow: AppThemeColor;
+    backgroundLight1: AppThemeColor;
+    backgroundLight2: AppThemeColor;
+    backgroundLight3: AppThemeColor;
+    backgroundDark1: AppThemeColor;
+    backgroundDark2: AppThemeColor;
+    backgroundDark3: AppThemeColor;
+    layout: LayoutColor;
   }
   interface PaletteOptions {
-    accentRed: PaletteOptions['primary'];
-    accentBlack: PaletteOptions['primary'];
-    accentWhite: PaletteOptions['primary'];
-    accentBlue: PaletteOptions['primary'];
-    accentPurple: PaletteOptions['primary'];
-    accentPink: PaletteOptions['primary'];
-    accentGreen: PaletteOptions['primary'];
-    accentYellow: PaletteOptions['primary'];
-    backgroundLight1: PaletteOptions['primary'];
-    backgroundLight2: PaletteOptions['primary'];
-    backgroundLight3: PaletteOptions['primary'];
-    backgroundDark1: PaletteOptions['primary'];
-    backgroundDark2: PaletteOptions['primary'];
-    backgroundDark3: PaletteOptions['primary'];
-    layout: PaletteOptions['primary'];
+    accentRed: AppThemeColor;
+    accentBlack: AppThemeColor;
+    accentWhite: AppThemeColor;
+    accentBlue: AppThemeColor;
+    accentPurple: AppThemeColor;
+    accentPink: AppThemeColor;
+    accentGreen: AppThemeColor;
+    accentYellow: AppThemeColor;
+    backgroundLight1: AppThemeColor;
+    backgroundLight2: AppThemeColor;
+    backgroundLight3: AppThemeColor;
+    backgroundDark1: AppThemeColor;
+    backgroundDark2: AppThemeColor;
+    backgroundDark3: AppThemeColor;
+    layout: LayoutColor;
   }
 }
 
-export const LightThemeConfig = createMuiTheme({
+export const LightThemeConfig: DefaultTheme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
@@ -80,10 +84,14 @@ export const LightThemeConfig = createMuiTheme({
     backgroundLight3,
     backgroundDark1,
     backgroundDark2,
-    backgroundDark3
+    backgroundDark3,
+
+    text: {
+      primary: appColors.accentBlack
+    }
   },
 });
-export const DarkThemeConfig = createMuiTheme({
+export const DarkThemeConfig: DefaultTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
@@ -106,7 +114,11 @@ export const DarkThemeConfig = createMuiTheme({
     backgroundLight3,
     backgroundDark1,
     backgroundDark2,
-    backgroundDark3
+    backgroundDark3,
+
+    text: {
+      primary: appColors.backgroundDark1
+    }
   },
 });
 
@@ -116,5 +128,7 @@ export const GlobalOverrideLight = createGlobalStyle`
 `;
 export const GlobalOverrideDark = createGlobalStyle`
 
+`;
+export const CommonStyles = createGlobalStyle`
 `;
 // --some-var-for-override: ${props.theme.some};

@@ -3,7 +3,7 @@ import { Sertificate } from "./Sertificate";
 export class User {
   public Id: number;
   public Nick: string;
-  public Roles: string[];
+  public Roles: UserRoles[];
   public Mail: string;
   public IsBanned: boolean;
   public Photo: string;
@@ -12,7 +12,7 @@ export class User {
   constructor(
     $Id: number = 0,
     $Nick: string = "",
-    $Roles: string[] = [],
+    $Roles: UserRoles[] = [],
     $Mail: string = "",
     $IsBanned: boolean = false,
     $Photo: string = "",
@@ -34,4 +34,10 @@ export class User {
 
 export class UserData {
   static UserTokenKey = "userTokenKey";
+}
+
+export enum UserRoles {
+  Participant,
+  Teacher,
+  Admin,
 }

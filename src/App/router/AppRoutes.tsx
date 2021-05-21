@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { MainPage } from '../../containers';
+import { LoginPage } from '../../containers/pages/LoginPage/LoginPage';
 import { ByAuth, ByRole } from './politics';
 import { routeConfig } from './RouteConfig';
 import { Secure } from './Secure';
@@ -20,8 +21,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
 
       {/* Login */}
       <Route {...routeConfig.Login}>
-        <Secure key="LoginSecure">
-          <MainPage />
+        <Secure key="LoginSecure" politic={ByAuth(false)} redirectPath={routeConfig.App.path}>
+          <LoginPage />
         </Secure>
       </Route>
 
@@ -29,7 +30,6 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
     </Switch>
   );
 };
-
 
 export const AppSecure: React.FC = (props) => (
   <Secure {...props} redirectPath={routeConfig.App.path}>

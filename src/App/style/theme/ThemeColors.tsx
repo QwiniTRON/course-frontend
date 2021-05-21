@@ -2,7 +2,7 @@
 import { AppColor } from './utilities/Colors';
 
 
-const appColors = {
+export const appColors = {
   backgroundLight1: "#000e1e",
   backgroundLight2: "#041528",
   backgroundLight3: "#1d2c3d",
@@ -170,4 +170,24 @@ export const lightLayout = {
   contrast: appColors.accentBlack,
   paper: appColors.backgroundDark2,
   text: appColors.accentBlack
+}
+
+export type AppThemeColor = {
+  main: string
+  contrastText: string
+  dark: string
+  light: string
+  gray: string
+  negate: string
+  weak: string
+}
+
+export type LayoutColor = {
+  main: string
+  dark: string
+  light: string
+  border: string
+  contrast: string
+  paper: string
+  text: string
 }

@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { AppMain } from './AppMain';
 import { Providers } from './Providers';
-import { AppRoutes } from './router';
 
 import "./style/global/main.scss";
 
 function App() {
-  useEffect(() => {
-
-  }, []);
-
   return (
     <Providers>
-      <AppRoutes />
+      <AppMain />
     </Providers>
   );
 }

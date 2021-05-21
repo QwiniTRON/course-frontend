@@ -1,16 +1,27 @@
+import { User } from '../../models';
 import {
-  any,
-  some
+  UserSetToken,
+  UserSetData,
+  UserSetError,
+  UserSetLoading
 } from './consts';
 
-// User
-export type SomeAction = {
-  type: typeof some,
-  some: string
+// USER
+export type UserSetTokenAction = {
+  type: typeof UserSetToken,
+  token: string
 }
-export type AnyAction = {
-  type: typeof any,
-  any: string
+export type UserSetDataAction = {
+  type: typeof UserSetData,
+  user: User
+}
+export type UserSetErrorAction = {
+  type: typeof UserSetError,
+  error: string
+}
+export type UserSetLoadingAction = {
+  type: typeof UserSetLoading,
+  loading: boolean
 }
 
-export type UserAction = SomeAction | AnyAction;
+export type UserAction = UserSetTokenAction | UserSetDataAction | UserSetErrorAction | UserSetLoadingAction;

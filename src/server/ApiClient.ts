@@ -1,39 +1,49 @@
-import { ky } from "ky/distribution/types/ky";
-import { appApi } from "./ApiConfigure";
+import { AxiosInstance, AxiosResponse, Canceler } from "axios";
+import { appApi, CreateHttpClient } from "./ApiConfigure";
+import { IApiResponse } from "./ApiModel";
 
 
-export type QueryFunction<TRequest = undefined, TResponse = undefined> = (api: ky, request: TRequest) => Promise<TResponse>;
+export type ApiQueryFunction<TRequest = undefined, TResponse = undefined> = (request?: TRequest, api?: AxiosInstance) => Promise<AxiosResponse<IApiResponse<TResponse>>>;
 
 
 export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
-  protected api: ky;
-  protected query: QueryFunction<TRequest, TResponse>;
+  protected api: AxiosInstance;
+  protected query: ApiQueryFunction<TRequest, TResponse>;
 
-  protected abortController: AbortController;
+  public canceler: Canceler;
 
   public error: any = null;
+  public apiError?: string;
   public loading: boolean = false;
 
   public data?: TResponse;
-  public fetchPromise?: Promise<TResponse>;
+  public fetchPromise?: Promise<IApiResponse<TResponse>>;
 
   public isFetched: boolean = false;
   public success: boolean = false;
   public isCanceled: boolean = false;
 
-  public onData?: (data: TResponse) => any
-  public onError?: (data: TResponse) => any
+  public authenticateToken: string;
 
-  constructor(query: QueryFunction<TRequest, TResponse>) {
+  public response?: IApiResponse<TResponse>;
+  public request?: TRequest;
+
+  public onData?: (data: IApiResponse<TResponse>, fetcher?: ApiFetcher<TRequest, TResponse>) => any
+  public onError?: (data: IApiResponse<TResponse>, fetcher?: ApiFetcher<TRequest, TResponse>) => any
+
+  constructor(query: ApiQueryFunction<TRequest, TResponse>, authenticateToken: string = "") {
     this.query = query;
-    this.abortController = new AbortController();
-    this.api = appApi.extend({
-      signal: this.abortController.signal
-    });
+
+    this.authenticateToken = authenticateToken;
+
+    const newAxios = CreateHttpClient(this.authenticateToken);
+    this.api = newAxios.httpClient;
+    this.canceler = newAxios.canceler;
   }
 
   reload() {
-    this.error = null;
+    this.error = undefined;
+    this.apiError = undefined;
     this.loading = false;
 
     this.data = undefined;
@@ -43,14 +53,18 @@ export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
     this.success = false;
     this.isCanceled = false;
 
-    this.abortController = new AbortController();
-    this.api = appApi.extend({
-      signal: this.abortController.signal
-    });
+    this.response = undefined;
+    this.request = undefined;
+
+    const newAxios = CreateHttpClient(this.authenticateToken);
+    this.api = newAxios.httpClient;
+    this.canceler = newAxios.canceler;
   }
 
-  fetch(request: TRequest): Promise<TResponse> {
-    this.fetchPromise = this.query(this.api, request);
+  fetch(request: TRequest): Promise<IApiResponse<TResponse>> {
+    this.fetchPromise = this.query(request, this.api).then((data) => data.data);
+
+    this.request = request;
 
     this.fetchPromise.then(this.finishHandler.bind(this)).catch(this.errorHandler.bind(this));
 
@@ -60,7 +74,7 @@ export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
   }
 
   cancel() {
-    this.abortController.abort();
+    this.canceler?.();
 
     this.loading = false;
 
@@ -68,14 +82,23 @@ export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
     this.isCanceled = true;
   }
 
-  private finishHandler(data: TResponse) {
+  private finishHandler(data: IApiResponse<TResponse>) {
     this.loading = false;
-    this.success = true;
     this.isFetched = true;
+    this.success = true;
 
-    this.data = data;
+    this.response = data;
 
-    this.onData?.(data);
+    if (data.succeeded == false) {
+      this.success = false;
+      this.apiError = data.error;
+    }
+
+    if (data.succeeded) {
+      this.data = data.data;
+    }
+
+    this.onData?.(data, this);
   }
 
   private errorHandler(error: any) {
@@ -85,6 +108,6 @@ export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
 
     this.error = error;
 
-    this.onError?.(error);
+    this.onError?.(error, this);
   }
 }

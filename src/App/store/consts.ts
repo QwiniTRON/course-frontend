@@ -1,3 +1,5 @@
 // user
-export const some = "some";
-export const any = "any";
+export const UserSetToken = "UserSetToken";
+export const UserSetData = "UserSetData";
+export const UserSetLoading = "UserSetLoading";
+export const UserSetError = "UserSetError";

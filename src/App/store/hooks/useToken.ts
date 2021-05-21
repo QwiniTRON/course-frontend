@@ -5,7 +5,7 @@ import { RootState } from '../StoreProvider';
 
 
 export function useToken() {
-  const token = useSelector<RootState>(state => state.user.authentication);
+  const token = useSelector((state: RootState) => state.user.authentication);
 
   return token;
 }

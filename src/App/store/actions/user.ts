@@ -40,30 +40,38 @@ export function setLoading(loading: boolean): UserAction {
 // logick
 export function Login(loginData: UserLoginRequest) {
   return async function (dispatch: Function, getState: () => RootState) {
+    dispatch(setLoading(true));
+
+    const loginFetcher = new ApiFetcher(LoginQuery);
+
+    let loginAnswer;
+
     try {
-      dispatch(setLoading(true));
+      loginAnswer = await loginFetcher.fetch(loginData);
+    } catch (err) { }
+console.log(loginAnswer);
 
-      const loginFetcher = new ApiFetcher(LoginQuery);
-
-      const loginAnswer = await loginFetcher.fetch(loginData);
-
-      if (loginAnswer.succeeded = false) {
-        dispatch(setError(loginAnswer.error));
-        dispatch(setLoading(false));
-        return;
-      }
-
-      dispatch(setToken(loginAnswer.data.token));
-
-      const currentUser = await GetCurrentUserQuery();
-
-      dispatch(setUser(currentUser.data.data));
-      dispatch(setError(""));
-    } catch (err) {
-      console.log("Login", err);
-    } finally {
+    if (Boolean(loginAnswer?.succeeded) == false) {
+      dispatch(setError(loginAnswer?.errorMessage ?? "что-то пошло не так..."));
       dispatch(setLoading(false));
+      return;
     }
+
+    if (loginAnswer) {
+      dispatch(setToken(loginAnswer?.data.token));
+    }
+
+    let currentUser;
+    try {
+      currentUser = await GetCurrentUserQuery();
+    } catch (err) {
+    }
+
+    if(currentUser) {
+      dispatch(setUser(currentUser.data.data));
+    }
+
+    dispatch(setLoading(false));
   }
 }
 // logout
@@ -92,8 +100,8 @@ export function INIT() {
       try {
         currentUser = await GetCurrentUserQuery();
 
-        if(currentUser.data.succeeded) dispatch(setUser(currentUser.data.data));
-      } catch(err) {} finally {}
+        if (currentUser.data.succeeded) dispatch(setUser(currentUser.data.data));
+      } catch (err) { } finally { }
     }
   }
 }

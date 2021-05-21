@@ -91,7 +91,7 @@ export class ApiFetcher<TRequest = undefined, TResponse = undefined> {
 
     if (data.succeeded == false) {
       this.success = false;
-      this.apiError = data.error;
+      this.apiError = data.errorMessage;
     }
 
     if (data.succeeded) {

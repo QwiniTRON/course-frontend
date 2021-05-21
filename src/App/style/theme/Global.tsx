@@ -21,7 +21,7 @@ export const AppThemeContext = React.createContext<ThemeContextProps>({ toggleTh
 
 
 export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
-  const [isDark, setIsDark] = useState(() => localStorage.getItem(ThemeLocalstorageKey) == ThemesEnum.dark);
+  const [isDark, setIsDark] = useState(() => !Boolean(localStorage.getItem(ThemeLocalstorageKey) == ThemesEnum.light));
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(ThemeLocalstorageKey);

@@ -3,7 +3,8 @@ import {
   UserSetToken,
   UserSetData,
   UserSetError,
-  UserSetLoading
+  UserSetLoading,
+  UserClearStore
 } from './consts';
 
 // USER
@@ -23,5 +24,8 @@ export type UserSetLoadingAction = {
   type: typeof UserSetLoading,
   loading: boolean
 }
+export type UserClearStoreAction = {
+  type: typeof UserClearStore
+}
 
-export type UserAction = UserSetTokenAction | UserSetDataAction | UserSetErrorAction | UserSetLoadingAction;
+export type UserAction = UserSetTokenAction | UserSetDataAction | UserSetErrorAction | UserSetLoadingAction | UserClearStoreAction;

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { User, UserAuthView } from '../../models';
 import { useUserData } from '../store/hooks/useUser';
 
-type SecureProps = {
+export type SecureProps = {
   redirectPath?: string
   politic?: (userData: UserAuthView) => boolean
 

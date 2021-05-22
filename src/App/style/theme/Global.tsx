@@ -48,6 +48,7 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   if (isDark === false) {
     theme = LightThemeConfig;
   }
+  
 
   let Override = GlobalOverrideDark;
   if (isDark === false) Override = GlobalOverrideLight;

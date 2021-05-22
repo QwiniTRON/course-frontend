@@ -1,10 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { MainPage } from '../../containers';
+import { MainPage } from '../../containers/pages/MainPage';
 import { LoginPage } from '../../containers/pages/LoginPage/LoginPage';
+import { SignUpPage } from '../../containers/pages/SignUpPage';
 import { ByAuth, ByRole } from './politics';
 import { routeConfig } from './RouteConfig';
-import { Secure } from './Secure';
+import { Secure, SecureProps } from './Secure';
 
 type AppRoutesProps = {}
 
@@ -26,18 +27,25 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
         </Secure>
       </Route>
 
+      {/* sign up */}
+      <Route {...routeConfig.SignUp}>
+        <AppSecure key="SignUpSecure" politic={ByAuth(false)}>
+          <SignUpPage />
+        </AppSecure>
+      </Route>
+
       <Redirect to={routeConfig.App.path} />
     </Switch>
   );
 };
 
-export const AppSecure: React.FC = (props) => (
+export const AppSecure: React.FC<SecureProps> = (props) => (
   <Secure {...props} redirectPath={routeConfig.App.path}>
     {props.children}
   </Secure>
 );
 
-export const LoginSecure: React.FC = (props) => (
+export const LoginSecure: React.FC<SecureProps> = (props) => (
   <Secure {...props} redirectPath={routeConfig.Login.path}>
     {props.children}
   </Secure>

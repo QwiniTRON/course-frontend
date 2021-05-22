@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppLayout } from '../../layouts';
+import { AppLayout } from '../../../layouts';
+
 
 type MainPageProps = {}
 

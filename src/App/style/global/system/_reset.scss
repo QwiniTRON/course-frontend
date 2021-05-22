@@ -11,3 +11,8 @@ a {
 a:visited {
   color: currentColor;
 }
+
+input {
+  min-width: 1px;
+  width: 100%;
+}

@@ -7,4 +7,10 @@ module.exports = function (app) {
       secure: false
     }),
   ]);
+  app.use([
+    createProxyMiddleware(process.env.REACT_APP_API_FILES + "/**", {
+      target: process.env.REACT_APP_PROXY_ADDRESS,
+      secure: false
+    }),
+  ]);
 };

@@ -1,2 +1,2 @@
-export * from './EmptyLayout/EmptyLayout';
+export * from './EmptyLayout';
 export * from './AppLayout';

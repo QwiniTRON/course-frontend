@@ -1,13 +1,13 @@
 import { Sertificate } from "./Sertificate";
 
 export class User {
-  public Id: number;
-  public Nick: string;
-  public Roles: UserRoles[];
-  public Mail: string;
-  public IsBanned: boolean;
-  public Photo: string;
-  public SubjectSertificates: Array<Sertificate>;
+  public id: number;
+  public nick: string;
+  public roles: UserRoles[];
+  public mail: string;
+  public isBanned: boolean;
+  public photo: string;
+  public subjectSertificates: Array<Sertificate>;
 
   constructor(
     $Id: number = 0,
@@ -18,13 +18,13 @@ export class User {
     $Photo: string = "",
     $SubjectSertificates: Array<Sertificate> = []
   ) {
-    this.Id = $Id;
-    this.Nick = $Nick;
-    this.Roles = $Roles;
-    this.Mail = $Mail;
-    this.IsBanned = $IsBanned;
-    this.Photo = $Photo;
-    this.SubjectSertificates = $SubjectSertificates;
+    this.id = $Id;
+    this.nick = $Nick;
+    this.roles = $Roles;
+    this.mail = $Mail;
+    this.isBanned = $IsBanned;
+    this.photo = $Photo;
+    this.subjectSertificates = $SubjectSertificates;
   }
 
   static Null() {

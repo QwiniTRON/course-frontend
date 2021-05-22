@@ -38,6 +38,8 @@ export function setLoading(loading: boolean): UserAction {
 }
 
 export function clearUserStore() {
+  localStorage.removeItem(UserData.UserTokenKey);
+
   return {
     type: UserClearStore
   };

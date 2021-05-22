@@ -16,8 +16,9 @@ type StyleProviderProps = {}
 
 export type ThemeContextProps = {
   toggleTheme: () => string
+  currentTheme: string
 }
-export const AppThemeContext = React.createContext<ThemeContextProps>({ toggleTheme: () => "" });
+export const AppThemeContext = React.createContext<ThemeContextProps>({ toggleTheme: () => "", currentTheme: "dark" });
 
 
 export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
@@ -54,7 +55,7 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   if (isDark === false) Override = GlobalOverrideLight;
 
   return (
-    <AppThemeContext.Provider value={{ toggleTheme: toggleTheme }}>
+    <AppThemeContext.Provider value={{ toggleTheme: toggleTheme, currentTheme: isDark? ThemesEnum.dark : ThemesEnum.light }}>
       <ThemeProvider theme={theme}>
         <StyledThemeProvider theme={theme}>
           <CommonStyles />

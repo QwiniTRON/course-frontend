@@ -5,7 +5,7 @@ export function ByRole(roles: UserRoles[]) {
   return (user: UserAuthView) => {
     if (Boolean(user.user) === false) return false;
 
-    return roles.filter(role => user.user?.Roles.includes(role)).length === roles.length;
+    return roles.filter(role => user.user?.roles.includes(role)).length === roles.length;
   }
 }
 

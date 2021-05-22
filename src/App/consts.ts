@@ -4,5 +4,9 @@ export const AppConsts = {
 
   get DefaultPhotoPath() {
     return this.staticPath + "/" + this.defaultPhoto;
-  }
+  },
+}
+
+export function appImg(path: string) {
+  return AppConsts.staticPath + "/" + path;
 }

@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const collapsedMenu = "100px";
 const mobileModeMedia = "600px";
@@ -34,6 +35,8 @@ export const ProfileManagerIcon = styled.img`
   width: 72px;
   height: 72px;
   border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 export const ProfileManagerMenu = styled.div`
@@ -88,12 +91,20 @@ export const ProfileManagerPunkt = styled.div`
   }
 `;
 
+export const ProfileManagerName = styled.div`
+  word-break: break-all;
+`;
+
 export const LayoutContent = styled.div`
 `;
 
 export const LayoutMenu = styled.nav`
   background-color: ${props => props.theme.palette.layout.paper};
   padding: ${props => props.theme.spacing(2)}px;
+
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
 `;
 
 export const Logo = styled(BookIcon)`
@@ -141,6 +152,9 @@ export const LayoutHeader = styled.header`
   grid-template-columns: 340px 1fr 290px;
   grid-template-rows: auto auto;
   gap: 4px;
+  position: sticky;
+  top: 0;
+  background-color: ${props => props.theme.palette.layout.main};
 
   @media screen and (max-width: 724px) {
     & {
@@ -205,7 +219,7 @@ export const LayoutBody = styled.main`
 
   @media screen and (max-width: ${mobileModeMedia}) {
     & {
-      grid-template-columns: 0 1fr;
+      grid-template-columns: 1fr;
     }
 
     & ${LayoutMenu} {
@@ -216,6 +230,11 @@ export const LayoutBody = styled.main`
       left: ${props => props.theme.spacing(1)}px;
       right: ${props => props.theme.spacing(1)}px;
       bottom: ${props => props.theme.spacing(1)}px;
+
+      display: flex;
+      flex-direction: column-reverse;
+
+      padding-bottom: 85px;
 
       box-shadow: 0 0 16px 0 #333;
 
@@ -237,11 +256,17 @@ export const LayoutBody = styled.main`
   }
 `;
 
+export const ProfileManagerButton = styled(MoreVertIcon)`
+  color: ${props => props.theme.palette.layout.contrast};
+`;
+
 export const useStyles = makeStyles((theme) => {
   const appTheme = theme as Theme;
+
   return {
     BurgerButton: {
-      transition: "transform 0.2s"
+      transition: "transform 0.2s",
+      color: appTheme.palette.layout.contrast,
     },
 
     '@media screen and (max-width: 601px)': {
@@ -250,7 +275,6 @@ export const useStyles = makeStyles((theme) => {
         backgroundColor: appTheme.palette.layout.paper,
         border: `1px solid ${appTheme.palette.layout.border}`,
         position: 'fixed',
-        color: appTheme.palette.layout.contrast,
         boxShadow: appTheme.shadows[4],
         bottom: `${appTheme.spacing(2)}px`,
         right: `${appTheme.spacing(2)}px`,

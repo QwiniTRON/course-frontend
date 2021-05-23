@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { AppConsts, appImg, appRoutes, ByRole, Logout, RootState, Secure, ThemesEnum } from '../../App';
-import { AppCard } from '../../components';
 import {
   AppLayoutDocument,
   Burger,
@@ -18,12 +17,12 @@ import {
   LayoutContent,
   LayoutMenu,
   LayoutBody,
-  NavItem
+  NavItem,
+  ProfileManagerButton,
+  ProfileManagerName
 } from './styled';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import { Box, IconButton, Switch } from '@material-ui/core';
 import { useThemeConfig } from '../../App/style/theme/UseThemeConfig';
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
@@ -44,6 +43,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const menusStatuses = useRef({profile: false, menu: false});
+  menusStatuses.current.menu = menuOpen;
+  menusStatuses.current.profile = profileOpen;
 
   const themeConfiguration = useThemeConfig();
   const styles = useStyles();
@@ -54,6 +56,24 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   const exitHandel = useCallback(() => {
     dispatch(Logout());
+  }, []);
+
+  useEffect(() => {
+    function outClick(event: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>): any {
+      const target = event.target as HTMLElement;
+      
+      if((Boolean(target.closest('[data-component="profile-manager"]')) == false) && menusStatuses.current.profile) {
+        setProfileOpen(false);
+      }
+    }
+
+    document.documentElement.addEventListener("click", outClick as any);
+    document.documentElement.addEventListener("touchend", outClick as any);
+
+    return () => {
+      document.documentElement.removeEventListener("click", outClick as any);
+      document.documentElement.removeEventListener("touchend", outClick as any);
+    }
   }, []);
 
   return (
@@ -68,15 +88,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </IconButton>
         </LogoMenu>
         <EmptyBlock />
-        <ProfileManager data-menu={profileOpen.toString()}>
-          <div>{userName}</div>
+        <ProfileManager data-menu={profileOpen.toString()} data-component="profile-manager">
+          <ProfileManagerName>{userName}</ProfileManagerName>
 
           <div>
             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => setProfileOpen(!profileOpen)}>
               <ProfileManagerIcon src={userAvatar} alt="user avatar" />
 
               <Box ml={1}>
-                <MoreVertIcon fontSize="large" />
+                <ProfileManagerButton fontSize="large" />
               </Box>
             </Button>
           </div>

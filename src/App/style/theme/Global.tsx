@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { CommonStyles, DarkThemeConfig, GlobalOverrideDark, GlobalOverrideLight, LightThemeConfig } from './Themes';
 
@@ -49,7 +49,6 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   if (isDark === false) {
     theme = LightThemeConfig;
   }
-  
 
   let Override = GlobalOverrideDark;
   if (isDark === false) Override = GlobalOverrideLight;

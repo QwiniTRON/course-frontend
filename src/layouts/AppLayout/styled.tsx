@@ -249,10 +249,10 @@ export const LayoutBody = styled.main`
 
 export const MenuToggler = styled(IconButton)`
   transition: transform 0.2s, background-color 0.3s;
-  color: ${props => props.theme.palette.layout.contrast};
+  color: ${props => props.theme.palette.layout.contrast} !important;
 
   button&:hover {
-    background-color: ${props => props.theme.palette.accentBlue.main}
+    background-color: ${props => props.theme.palette.accentBlue.main};
   }
 
   ${AppLayoutDocument}[data-menu="true"] & {
@@ -291,7 +291,11 @@ export const useStyles = makeStyles((theme) => {
 
   return {
     ActiveLink: {
-      color: appTheme.palette.accentBlue.main
+      color: appTheme.palette.accentBlue.main,
+
+      '& svg': {
+        color: appTheme.palette.accentBlue.main
+      }
     },
 
     mainMenuCloseButton: {
@@ -301,6 +305,14 @@ export const useStyles = makeStyles((theme) => {
     logoToggler: {
       '@media screen and (max-width: 724px)': {
         display: 'none'
+      }
+    },
+
+    mainToggler: {
+      display: 'none',
+
+      '@media screen and (max-width: 724px)': {
+        display: 'block'
       }
     }
   };

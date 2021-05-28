@@ -1,3 +1,4 @@
+export * from './ThemeToggler';
 export * from './CenterCard';
 export * from './AppCard';
 export * from './AppLink';

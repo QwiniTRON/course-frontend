@@ -168,7 +168,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                   <SignUpIcon src={userPhoto} />
                 </label>
                 {hasPhoto &&
-                  <IconButton aria-label="hide password" onClick={() => {
+                  <IconButton aria-label="clear avatar" onClick={() => {
                     reset({ photo: undefined });
                   }}>
                     <ClearIcon />

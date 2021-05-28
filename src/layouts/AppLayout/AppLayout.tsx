@@ -114,8 +114,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               />
             </ProfileManagerPunkt>
 
-            <ProfileManagerItem activeClassName={styles.ActiveLink} to="/some"><AccountCircleIcon /> Профиль</ProfileManagerItem>
-            <ProfileManagerItem activeClassName={styles.ActiveLink} to="/some"><SettingsIcon /> Настройки</ProfileManagerItem>
+            <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Profile}><AccountCircleIcon /> Профиль</ProfileManagerItem>
+            <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Settings}><SettingsIcon /> Настройки</ProfileManagerItem>
             <ProfileManagerPunkt onClick={exitHandel}><ExitToAppIcon /> Выйти</ProfileManagerPunkt>
           </ProfileManagerMenu>
         </ProfileManager>
@@ -126,13 +126,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <NavItem to="/some" activeClassName={styles.ActiveLink}><InfoIcon fontSize="large" /> <span>О проекте</span></NavItem>
 
           <Secure politic={ByRole([UserRoles.Teacher, UserRoles.Admin])}>
-            <NavItem to="/some" activeClassName={styles.ActiveLink}><SupervisedUserCircleIcon fontSize="large" /> <span>Админ панель</span></NavItem>
+            <NavItem to={appRoutes.AdminMain} activeClassName={styles.ActiveLink}><SupervisedUserCircleIcon fontSize="large" /> <span>Админ панель</span></NavItem>
           </Secure>
         </LayoutMenu>
         <LayoutContent>
           {children}
         </LayoutContent>
-        <MenuToggler data-component="IconButton" aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <MenuToggler data-component="IconButton" classes={{root: styles.mainToggler}} aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
           <Burger />
           <Clear />
         </MenuToggler>

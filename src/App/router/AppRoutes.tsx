@@ -6,6 +6,8 @@ import { SignUpPage } from '../../containers/pages/SignUpPage';
 import { ByAuth, ByRole } from './politics';
 import { routeConfig } from './RouteConfig';
 import { Secure, SecureProps } from './Secure';
+import { AdminLessons, AdminMain, ProfilePage, SettingsPage } from '../../containers';
+import { UserRoles } from '../../models';
 
 type AppRoutesProps = {}
 
@@ -14,23 +16,51 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
     <Switch key="MainSwitch">
 
       {/* Main */}
-      <Route {...routeConfig.App}>
+      <Route {...routeConfig.App} key="some">
         <Secure politic={ByAuth()} key="AppSecure" redirectPath={routeConfig.Login.path}>
-          <MainPage />
+          <MainPage key="page" />
         </Secure>
       </Route>
 
       {/* Login */}
       <Route {...routeConfig.Login}>
         <Secure key="LoginSecure" politic={ByAuth(false)} redirectPath={routeConfig.App.path}>
-          <LoginPage />
+          <LoginPage key="page" />
         </Secure>
       </Route>
 
       {/* sign up */}
       <Route {...routeConfig.SignUp}>
         <AppSecure key="SignUpSecure" politic={ByAuth(false)}>
-          <SignUpPage />
+          <SignUpPage key="page" />
+        </AppSecure>
+      </Route>
+
+      {/* profile */}
+      <Route {...routeConfig.Profile}>
+        <AppSecure key="ProfileSecure" politic={ByAuth()}>
+          <ProfilePage key="page" />
+        </AppSecure>
+      </Route>
+
+      {/* settings */}
+      <Route {...routeConfig.Settings}>
+        <AppSecure key="SettingsSecure" politic={ByAuth()}>
+          <SettingsPage key="page" />
+        </AppSecure>
+      </Route>
+
+      {/* admin main */}
+      <Route {...routeConfig.AdminMain}>
+        <AppSecure key="AdminMainSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
+          <AdminMain key="page" />
+        </AppSecure>
+      </Route>
+
+      {/* admin lessons */}
+      <Route {...routeConfig.AdminLessons}>
+        <AppSecure key="AdminLessonsSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
+          <AdminLessons key="page" />
         </AppSecure>
       </Route>
 

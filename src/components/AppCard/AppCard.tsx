@@ -1,11 +1,13 @@
 import React from 'react';
 import { AppCardBody } from './styled';
 
-type AppCardProps = {}
+type AppCardProps = {
+  className?: string
+}
 
 export const AppCard: React.FC<AppCardProps> = (props) => {
   return (
-    <AppCardBody>
+    <AppCardBody className={props.className}>
       {props.children}
     </AppCardBody>
   );

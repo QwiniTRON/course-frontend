@@ -3,18 +3,19 @@ import styled from 'styled-components';
 import BookIcon from '@material-ui/icons/Book';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { IconButton, Theme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const collapsedMenu = "100px";
-const mobileModeMedia = "600px";
+const mobileModeMedia = "724px";
 
 
 export const AppLayoutDocument = styled.div`
   background-color: ${props => props.theme.palette.layout.main};
 
   min-height: 100%;
+  position: relative;
 `;
 
 export const EmptyBlock = styled.div`
@@ -58,7 +59,7 @@ export const ProfileManagerMenu = styled.div`
 
   box-shadow: ${props => props.theme.shadows[4]};
 
-  ${ProfileManager}[data-menu="true"] & {
+  ${AppLayoutDocument}[data-profile-menu="true"] & {
     visibility: visible;
     opacity: 1;
   }
@@ -93,9 +94,12 @@ export const ProfileManagerPunkt = styled.div`
 
 export const ProfileManagerName = styled.div`
   word-break: break-all;
+  word-wrap: break-word;
 `;
 
 export const LayoutContent = styled.div`
+  word-break: break-all;
+  word-wrap: break-word;
 `;
 
 export const LayoutMenu = styled.nav`
@@ -155,47 +159,33 @@ export const LayoutHeader = styled.header`
   position: sticky;
   top: 0;
   background-color: ${props => props.theme.palette.layout.main};
+  z-index: 2;
 
-  @media screen and (max-width: 724px) {
-    & {
-      grid-template-columns: 340px 0 1fr;
+  ${AppLayoutDocument}[data-menu="true"] & {
+    grid-template-columns: ${collapsedMenu} 1fr 290px;
+  }
+  ${AppLayoutDocument}[data-menu="true"] & ${LogoMenu} a {
+    display: none;
+  }
+
+  @media screen and (max-width: ${mobileModeMedia}) {
+    ${AppLayoutDocument}[data-menu="true"] & ${Clear} {
+      display: block;
+    }
+    ${AppLayoutDocument}[data-menu="true"] & ${Burger} {
+      display: none;
+    }
+    &{
+      grid-template-columns: 75px 0 1fr !important;
+    }
+
+    ${AppLayoutDocument}[data-menu="true"] {
+
     }
 
     & ${ProfileManagerIcon} {
         width: 36px; 
         height: 36px; 
-    }
-  }
-
-  &[data-menu="true"] {
-    grid-template-columns: ${collapsedMenu} 1fr 290px;
-  }
-  &[data-menu="true"] ${LogoMenu} a {
-    display: none;
-  }
-
-  &[data-menu="true"] button[data-component="IconButton"] {
-    transform: rotateZ(90deg);
-  }
-  &[data-menu="false"] ${Clear} {
-    display: none;
-  }
-  &[data-menu="true"] ${Clear} {
-    display: none;
-  }
-
-  @media screen and (max-width: ${mobileModeMedia}) {
-    &[data-menu="true"] ${Clear} {
-      display: block;
-    }
-    &[data-menu="true"] ${Burger} {
-      display: none;
-    }
-    &{
-      grid-template-columns: 75px 0 1fr;
-    }
-    &[data-menu="true"] {
-      grid-template-columns: 75px 0 1fr;
     }
   }
 `;
@@ -204,22 +194,23 @@ export const LayoutBody = styled.main`
   display: grid;
   grid-template-columns: 340px 1fr;
   gap: 0 4px;
+  word-break: break-all;
 
-  &[data-menu="true"] {
+  ${AppLayoutDocument}[data-menu="true"] & {
     grid-template-columns: ${collapsedMenu} 1fr;
   }
 
-  &[data-menu="true"] ${LayoutMenu} {
+  ${AppLayoutDocument}[data-menu="true"] & ${LayoutMenu} {
     padding-left: 34px;
   }
 
-  &[data-menu="true"] ${NavItem} > span {
+  ${AppLayoutDocument}[data-menu="true"] & ${NavItem} > span {
     display: none;
   }
 
   @media screen and (max-width: ${mobileModeMedia}) {
     & {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
     }
 
     & ${LayoutMenu} {
@@ -245,13 +236,48 @@ export const LayoutBody = styled.main`
       transition: visibility 0.3s, opacity 0.3s;
     }
 
-    &[data-menu="true"] ${LayoutMenu} {
+    ${AppLayoutDocument}[data-menu="true"] & ${LayoutMenu} {
       visibility: visible;
       opacity: 1;
     }
 
-    &[data-menu="true"] ${NavItem} > span {
+    ${AppLayoutDocument}[data-menu="true"] & ${NavItem} > span {
       display: flex;
+    }
+  }
+`;
+
+export const MenuToggler = styled(IconButton)`
+  transition: transform 0.2s, background-color 0.3s;
+  color: ${props => props.theme.palette.layout.contrast};
+
+  button&:hover {
+    background-color: ${props => props.theme.palette.accentBlue.main}
+  }
+
+  ${AppLayoutDocument}[data-menu="true"] & {
+    transform: rotateZ(90deg);
+  }
+  ${Clear} {
+    display: none;
+  }
+  ${AppLayoutDocument}[data-menu="true"] & ${Clear} {
+    display: block;
+  }
+  ${AppLayoutDocument}[data-menu="true"] & ${Burger} {
+    display: none;
+  }
+
+  @media screen and (max-width: ${mobileModeMedia}) {
+    button&{
+      padding: 16px;
+      background-color: ${props => props.theme.palette.layout.paper};
+      border: 1px solid ${props => props.theme.palette.layout.border};
+      position: fixed;
+      box-shadow: ${props => props.theme.shadows[4]};
+      bottom: ${props => props.theme.spacing(2)}px;
+      right: ${props => props.theme.spacing(2)}px;
+      z-index: 25;
     }
   }
 `;
@@ -264,26 +290,18 @@ export const useStyles = makeStyles((theme) => {
   const appTheme = theme as Theme;
 
   return {
-    BurgerButton: {
-      transition: "transform 0.2s",
-      color: appTheme.palette.layout.contrast,
-    },
-
-    '@media screen and (max-width: 601px)': {
-      BurgerButton: {
-        padding: "16px",
-        backgroundColor: appTheme.palette.layout.paper,
-        border: `1px solid ${appTheme.palette.layout.border}`,
-        position: 'fixed',
-        boxShadow: appTheme.shadows[4],
-        bottom: `${appTheme.spacing(2)}px`,
-        right: `${appTheme.spacing(2)}px`,
-        zIndex: 25,
-      }
-    },
-
     ActiveLink: {
       color: appTheme.palette.accentBlue.main
+    },
+
+    mainMenuCloseButton: {
+      display: "none",
+    },
+
+    logoToggler: {
+      '@media screen and (max-width: 724px)': {
+        display: 'none'
+      }
     }
   };
 });

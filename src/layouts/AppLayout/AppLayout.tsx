@@ -19,11 +19,12 @@ import {
   LayoutBody,
   NavItem,
   ProfileManagerButton,
-  ProfileManagerName
+  ProfileManagerName,
+  MenuToggler
 } from './styled';
 import Button from '@material-ui/core/Button';
 
-import { Box, IconButton, Switch } from '@material-ui/core';
+import { Box, Switch } from '@material-ui/core';
 import { useThemeConfig } from '../../App/style/theme/UseThemeConfig';
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -43,7 +44,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const menusStatuses = useRef({profile: false, menu: false});
+  const menusStatuses = useRef({ profile: false, menu: false });
   menusStatuses.current.menu = menuOpen;
   menusStatuses.current.profile = profileOpen;
 
@@ -61,8 +62,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   useEffect(() => {
     function outClick(event: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>): any {
       const target = event.target as HTMLElement;
-      
-      if((Boolean(target.closest('[data-component="profile-manager"]')) == false) && menusStatuses.current.profile) {
+
+      if ((Boolean(target.closest('[data-component="profile-manager"]')) == false) && menusStatuses.current.profile) {
         setProfileOpen(false);
       }
     }
@@ -77,18 +78,18 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <AppLayoutDocument key="AppLayout">
-      <LayoutHeader data-menu={menuOpen.toString()}>
+    <AppLayoutDocument key="AppLayout" data-menu={menuOpen.toString()} data-profile-menu={profileOpen.toString()}>
+      <LayoutHeader>
         <LogoMenu>
           <Link to={appRoutes.App}><Logo /></Link>
 
-          <IconButton data-component="IconButton" className={styles.BurgerButton} aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <MenuToggler data-component="IconButton" classes={{ root: styles.logoToggler }} aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
             <Burger />
             <Clear />
-          </IconButton>
+          </MenuToggler>
         </LogoMenu>
         <EmptyBlock />
-        <ProfileManager data-menu={profileOpen.toString()} data-component="profile-manager">
+        <ProfileManager data-component="profile-manager">
           <ProfileManagerName>{userName}</ProfileManagerName>
 
           <div>
@@ -119,7 +120,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </ProfileManagerMenu>
         </ProfileManager>
       </LayoutHeader>
-      <LayoutBody data-menu={menuOpen.toString()}>
+      <LayoutBody>
         <LayoutMenu>
           <NavItem to="/some" activeClassName={styles.ActiveLink}><ViewListIcon fontSize="large" /> <span>Уроки</span></NavItem>
           <NavItem to="/some" activeClassName={styles.ActiveLink}><InfoIcon fontSize="large" /> <span>О проекте</span></NavItem>
@@ -131,6 +132,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <LayoutContent>
           {children}
         </LayoutContent>
+        <MenuToggler data-component="IconButton" aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <Burger />
+          <Clear />
+        </MenuToggler>
       </LayoutBody>
     </AppLayoutDocument>
   );

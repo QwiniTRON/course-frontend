@@ -20,8 +20,8 @@ type LoginFormInputs = {
 }
 
 const schema = Yup.object().shape({
-  mail: Yup.string().required("поле обязательно"),
-  password: Yup.string().required("поле обязательно")
+  mail: Yup.string().trim().required("поле обязательно"),
+  password: Yup.string().trim().required("поле обязательно")
 });
 
 export const LoginPage: React.FC<LoginPageProps> = (props) => {
@@ -36,7 +36,7 @@ export const LoginPage: React.FC<LoginPageProps> = (props) => {
   });
 
   const onSubmit = (data: LoginFormInputs) => {
-    dispatch(Login({ mail: data.mail, password: data.password }));
+    dispatch(Login({ mail: data.mail.trim(), password: data.password.trim() }));
   };
   const handleHideChange = () => {
     setIsHide((state) => !state);

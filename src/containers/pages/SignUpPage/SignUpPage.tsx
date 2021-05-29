@@ -27,12 +27,12 @@ type SignUpInputs = {
 }
 
 const schema = Yup.object().shape({
-  mail: Yup.string().required("поле обязательно").email("адрес не по формату"),
-  password: Yup.string().required("поле обязательно").min(6, "не короче 6 символов").max(64, "не длиннее 64 символов"),
-  rpassword: Yup.string().required("поле обязательно").test("password equal", "пароли должны совпадать", function (value) {
+  mail: Yup.string().trim().required("поле обязательно").email("адрес не по формату"),
+  password: Yup.string().trim().required("поле обязательно").min(6, "не короче 6 символов").max(64, "не длиннее 64 символов"),
+  rpassword: Yup.string().trim().required("поле обязательно").test("password equal", "пароли должны совпадать", function (value) {
     return this.parent.password == value;
   }),
-  nick: Yup.string().required("поле обязательно").min(6, "не короче 6 символов").max(64, "не длиннее 64 символов")
+  nick: Yup.string().trim().required("поле обязательно").min(6, "не короче 6 символов").max(64, "не длиннее 64 символов")
 });
 
 export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
@@ -56,7 +56,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
 
   const onSubmit = (data: SignUpInputs) => {
     if(loading === false) {
-      const signUp = dispatch(SignUp({mail: data.mail, nick: data.nick, password: data.password, userPhoto: data.photo[0]}));
+      const signUp = dispatch(SignUp({mail: data.mail.trim(), nick: data.nick.trim(), password: data.password.trim(), userPhoto: data.photo[0]}));
       (signUp as any).then((signUpResult: boolean) => {
         if(signUpResult) history.push(appRoutes.App);
       });

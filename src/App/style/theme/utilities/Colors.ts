@@ -253,7 +253,6 @@ export class AppColor {
     let r = Number(chanels[0][0]);
     let g = Number(chanels[1][0]);
     let b = Number(chanels[2][0]);
-    console.log(r, g, b);
 
     return 0xff * bit24 + (r << 16 | g << 8 | b);
   }

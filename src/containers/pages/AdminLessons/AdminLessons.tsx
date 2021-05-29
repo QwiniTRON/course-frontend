@@ -9,11 +9,16 @@ import { GetLessons, GetLessonsResponse, IApiResponse } from '../../../server';
 import { AdminLessonsContainer, AdminLessonsContent, AdminLessonsItem, AdminLessonsItemItems } from './styled';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import AddIcon from '@material-ui/icons/Add';
+import { appRoutes } from '../../../App';
 
 type AdminLessonsProps = {}
 
 export const AdminLessons: React.FC<AdminLessonsProps> = (props) => {
   const { data, isError, error, isLoading } = useQuery<AxiosResponse<IApiResponse<GetLessonsResponse>>>(["lessons"], GetLessons as any);
+
+  let lessons = data?.data.data;
+  lessons?.sort((l, r) => l.index - r.index);
 
   return (
     <AppLayout>
@@ -22,18 +27,26 @@ export const AdminLessons: React.FC<AdminLessonsProps> = (props) => {
 
         {isLoading && <CircularProgress />}
         <AdminLessonsContent>
-          {data?.data.data.map((lesson) => (
-            <Link key={lesson.id} to="/some">
+          {lessons?.map((lesson) => (
+            <Link key={lesson.id} to={appRoutes.getLessonView(lesson.id.toString())}>
               <AdminLessonsItem>
                 <Box textAlign="center">{lesson.name}</Box>
 
                 <AdminLessonsItemItems>
                   <ListAltIcon /> <div>номер</div> <div>{lesson.index}</div>
-                  <ListAltIcon /> <div>тип</div> <div>{lesson.isPractice? "* практика" : "теория"}</div>
+                  <AssignmentTurnedInIcon /> <div>тип</div> <div>{lesson.isPractice ? "* практика" : "теория"}</div>
                 </AdminLessonsItemItems>
               </AdminLessonsItem>
             </Link>
           ))}
+
+          <Link key="create" to="/admin/lessons/create">
+            <AdminLessonsItem>
+              <Box display="flex" alignItems="center" justifyContent="center" p={3}>
+                <AddIcon />
+              </Box>
+            </AdminLessonsItem>
+          </Link>
         </AdminLessonsContent>
       </AdminLessonsContainer >
     </AppLayout >

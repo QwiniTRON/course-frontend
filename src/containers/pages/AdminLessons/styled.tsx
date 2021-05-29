@@ -22,7 +22,7 @@ export const AdminLessonsItem = styled(AppCard)`
 
 export const AdminLessonsItemItems = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto auto 1fr;
 
   margin-top: 0.5rem;
   gap: 1rem;

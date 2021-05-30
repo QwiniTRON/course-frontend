@@ -3,7 +3,20 @@ import { UserSetToken, UserSetData, UserSetError, UserSetLoading, UserClearStore
 import { User, UserData } from "../../../models";
 import { LoginQuery, UserLoginRequest } from "../../../server/Queries/Auth/LoginQuery";
 import { RootState } from "../StoreProvider";
-import { ApiFetcher, GetCurrentUserQuery, CheckCurrentToken, SignUpRequest, SignUpQuery, ChangeUserNick, ChangeUserAvatar } from "../../../server";
+import {
+  ApiFetcher,
+  GetCurrentUserQuery,
+  CheckCurrentToken,
+  SignUpRequest,
+  SignUpQuery,
+  ChangeUserNick,
+  ChangeUserAvatar,
+  AddUserProgress,
+  AddUserProgressRequest,
+  AddPracticeOrder,
+  AddPracticeOrderRequest,
+  GetUserPractices
+} from "../../../server";
 
 
 // actions
@@ -47,6 +60,62 @@ export function clearUserStore() {
 
 // logick
 
+/**add user practice order */
+export function AddUserPracticeOrder(request: AddPracticeOrderRequest) {
+  return async function (dispatch: Function, getState: () => RootState) {
+    dispatch(setLoading(true));
+
+    const state = getState();
+    const user = state.user.userData!;
+
+    let addAnswer;
+    try{
+      addAnswer = await AddPracticeOrder(request);
+    } catch(err) {}
+    if(Boolean(addAnswer?.data?.succeeded) == false) {
+      dispatch(setError(addAnswer?.data?.errorMessage ?? "Что-то пошло не так..."));
+      return dispatch(setLoading(false));
+    }
+
+    let userPractices;
+    try {
+      userPractices = await GetUserPractices();
+    } catch(err) {}
+    if(userPractices?.data?.succeeded == true) {
+      user.practiceOrders = userPractices.data.data;
+      dispatch(setUser(user));
+    }
+
+    dispatch(setLoading(false));
+  }
+}
+
+/**add user progress */
+export function AddProgress(request: AddUserProgressRequest) {
+  return async function (dispatch: Function, getState: () => RootState) {
+    dispatch(setLoading(true));
+
+    const state = getState();
+    const user = state.user.userData!;
+
+    let addAnswer;
+    try {
+      addAnswer = await AddUserProgress(request);
+    } catch (err) {}
+
+    if(Boolean(addAnswer?.data.succeeded) == false) {
+      dispatch(setError(addAnswer?.data?.errorMessage ?? "Что-то пошло не так..."));
+    }
+
+    if(addAnswer?.data.succeeded == true) {
+      user.userProgresses = addAnswer.data.data;
+      dispatch(setUser(user));
+    }
+
+    dispatch(setLoading(false));
+  }
+}
+
 /**change avatar */
 export function ChangeAvatar(newAvatar: File) {
   return async function (dispatch: Function, getState: () => RootState) {
@@ -58,14 +127,14 @@ export function ChangeAvatar(newAvatar: File) {
 
     let changeAvatar;
     try {
-      changeAvatar = await ChangeUserAvatar({userId: userId!, newPhoto: newAvatar});
+      changeAvatar = await ChangeUserAvatar({ userId: userId!, newPhoto: newAvatar });
     } catch (err) {
-      if(Boolean(changeAvatar?.data.succeeded) == false) {
+      if (Boolean(changeAvatar?.data.succeeded) == false) {
         dispatch(setError(changeAvatar?.data?.errorMessage ?? "Что-то пошло не так..."));
       }
     }
 
-    if(changeAvatar?.data.succeeded) {
+    if (changeAvatar?.data.succeeded) {
       user.photo = changeAvatar.data.data;
       dispatch(setUser(user));
     }
@@ -85,14 +154,14 @@ export function ChangeNick(newNick: string) {
 
     let changeNick;
     try {
-      changeNick = await ChangeUserNick({userId: userId!, newNick});
+      changeNick = await ChangeUserNick({ userId: userId!, newNick });
     } catch (err) {
-      if(Boolean(changeNick?.data.succeeded) == false) {
+      if (Boolean(changeNick?.data.succeeded) == false) {
         dispatch(setError(changeNick?.data?.errorMessage ?? "Что-то пошло не так..."));
       }
     }
 
-    if(changeNick?.data.succeeded) {
+    if (changeNick?.data.succeeded) {
       user.nick = newNick;
       dispatch(setUser(user));
     }

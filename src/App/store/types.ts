@@ -1,10 +1,12 @@
 import { User } from '../../models';
+import { Lesson } from '../../models/Lesson';
 import {
   UserSetToken,
   UserSetData,
   UserSetError,
   UserSetLoading,
-  UserClearStore
+  UserClearStore,
+  SetLessons
 } from './consts';
 
 // USER
@@ -29,3 +31,11 @@ export type UserClearStoreAction = {
 }
 
 export type UserAction = UserSetTokenAction | UserSetDataAction | UserSetErrorAction | UserSetLoadingAction | UserClearStoreAction;
+
+// APPDATA
+export type DataSetLessonsAction = {
+  type: typeof SetLessons,
+  lessons: Lesson[]
+}
+
+export type AppDataAction = DataSetLessonsAction;

@@ -49,12 +49,13 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   if (isDark === false) {
     theme = LightThemeConfig;
   }
+  // console.log(theme);
 
   let Override = GlobalOverrideDark;
   if (isDark === false) Override = GlobalOverrideLight;
 
   return (
-    <AppThemeContext.Provider value={{ toggleTheme: toggleTheme, currentTheme: isDark? ThemesEnum.dark : ThemesEnum.light }}>
+    <AppThemeContext.Provider value={{ toggleTheme: toggleTheme, currentTheme: isDark ? ThemesEnum.dark : ThemesEnum.light }}>
       <ThemeProvider theme={theme}>
         <StyledThemeProvider theme={theme}>
           <CommonStyles />

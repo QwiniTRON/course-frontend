@@ -1,10 +1,11 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { userReducer } from './storages';
+import { appDataReducer, userReducer } from './storages';
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  data: appDataReducer
 });
 
 const composeEnhancers =

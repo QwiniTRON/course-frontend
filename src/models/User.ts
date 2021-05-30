@@ -1,4 +1,6 @@
+import { PracticeOrder } from "./Practice";
 import { Sertificate } from "./Sertificate";
+import { UserProgres } from "./UserProgress";
 
 export class User {
   public id: number;
@@ -8,6 +10,8 @@ export class User {
   public isBanned: boolean;
   public photo: string;
   public subjectSertificates: Array<Sertificate>;
+  public userProgresses: UserProgres[]
+  public practiceOrders: PracticeOrder[]
 
   constructor(
     $Id: number = 0,
@@ -16,7 +20,9 @@ export class User {
     $Mail: string = "",
     $IsBanned: boolean = false,
     $Photo: string = "",
-    $SubjectSertificates: Array<Sertificate> = []
+    $SubjectSertificates: Array<Sertificate> = [],
+    userProgresses: UserProgres[] = [],
+    practiceOrders: PracticeOrder[] = []
   ) {
     this.id = $Id;
     this.nick = $Nick;
@@ -25,6 +31,8 @@ export class User {
     this.isBanned = $IsBanned;
     this.photo = $Photo;
     this.subjectSertificates = $SubjectSertificates;
+    this.userProgresses = userProgresses;
+    this.practiceOrders = practiceOrders;
   }
 
   static Null() {

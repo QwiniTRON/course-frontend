@@ -6,7 +6,7 @@ import { SignUpPage } from '../../containers/pages/SignUpPage';
 import { ByAuth, ByRole } from './politics';
 import { routeConfig } from './RouteConfig';
 import { Secure, SecureProps } from './Secure';
-import { AdminLessons, AdminMain, AdminViewLesson, LessonCreate, LessonWork, ProfilePage, SettingsPage } from '../../containers';
+import { AdminLessons, AdminMain, AdminViewLesson, LessonCreate, LessonPage, LessonsPage, LessonWork, ProfilePage, SettingsPage } from '../../containers';
 import { UserRoles } from '../../models';
 
 type AppRoutesProps = {}
@@ -43,10 +43,23 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
         </AppSecure>
       </Route>
 
+      {/* lessons */}
+      <Route {...routeConfig.Lessons}>
+        <AppSecure key="ProfileSecure" politic={ByAuth()}>
+          <LessonsPage key="page" />
+        </AppSecure>
+      </Route>
+
       {/* settings */}
       <Route {...routeConfig.Settings}>
         <AppSecure key="SettingsSecure" politic={ByAuth()}>
           <SettingsPage key="page" />
+        </AppSecure>
+      </Route>
+
+      <Route {...routeConfig.LessonPage}>
+        <AppSecure key="LessonPageSecure" politic={ByAuth()}>
+          <LessonPage key="page" />
         </AppSecure>
       </Route>
 

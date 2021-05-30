@@ -122,7 +122,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       </LayoutHeader>
       <LayoutBody>
         <LayoutMenu>
-          <NavItem to="/some" activeClassName={styles.ActiveLink}><ViewListIcon fontSize="large" /> <span>Уроки</span></NavItem>
+          <NavItem to={appRoutes.Lessons} activeClassName={styles.ActiveLink}><ViewListIcon fontSize="large" /> <span>Уроки</span></NavItem>
           <NavItem to="/some" activeClassName={styles.ActiveLink}><InfoIcon fontSize="large" /> <span>О проекте</span></NavItem>
 
           <Secure politic={ByRole([UserRoles.Teacher, UserRoles.Admin])}>

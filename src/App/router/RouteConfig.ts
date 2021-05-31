@@ -1,6 +1,7 @@
 export const routeConfig = {
   App: { path: "/", exact: true, key: "AppRoute" },
   Login: { path: "/login", exact: true, key: "LoginRoute" },
+  About: { path: "/about", exact: true, key: "AboutRoute" },
   SignUp: { path: "/signup", exact: true, key: "SignUpRoute" },
   Profile: { path: "/profile", exact: true, key: "ProfileRoute" },
   Lessons: { path: "/lessons", exact: true, key: "LessonsRoute" },
@@ -8,6 +9,7 @@ export const routeConfig = {
   Practices: { path: "/admin/practices", exact: true, key: "PracticesRoute" },
   AdminMain: { path: "/admin", exact: true, key: "AdminRoute" },
   LessonPage: { path: "/lessons/:id", exact: true, key: "LessonPageRoute" },
+  AdminUsers: { path: "/admin/users", exact: true, key: "AdminUsersRoute" },
   AdminLesson: { path: "/admin/lessons/:id/view", exact: true, key: "AdminLessonRoute" },
   AdminLessons: { path: "/admin/lessons", exact: true, key: "AdminLessonsRoute" },
   AdminPractice: { path: "/admin/practice/:id", exact: true, key: "AdminPracticeRoute" },
@@ -18,6 +20,7 @@ export const routeConfig = {
 export const appRoutes = {
   App: routeConfig.App.path,
   Login: routeConfig.Login.path,
+  About: routeConfig.About.path,
   SignUp: routeConfig.SignUp.path,
   Profile: routeConfig.Profile.path,
   Lessons: routeConfig.Lessons.path,
@@ -25,6 +28,7 @@ export const appRoutes = {
   Practices: routeConfig.Practices.path,
   AdminMain: routeConfig.AdminMain.path,
   LessonPage: routeConfig.LessonPage.path,
+  AdminUsers: routeConfig.AdminUsers.path,
   AdminLesson: routeConfig.AdminLesson.path,
   AdminLessons: routeConfig.AdminLessons.path,
   AdminPractice: routeConfig.AdminPractice.path,

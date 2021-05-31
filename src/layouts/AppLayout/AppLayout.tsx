@@ -24,7 +24,7 @@ import {
 } from './styled';
 import Button from '@material-ui/core/Button';
 
-import { Box, Switch } from '@material-ui/core';
+import { Box, CircularProgress, Switch } from '@material-ui/core';
 import { useThemeConfig } from '../../App/style/theme/UseThemeConfig';
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -54,6 +54,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const userData = useSelector((state: RootState) => state.user.userData);
   const userName = userData?.nick ?? "Без имени";
   const userAvatar = userData?.photo ? appFiles(userData?.photo) : AppConsts.DefaultPhotoPath;
+  const loading = Boolean(userData) == false;
 
   const exitHandel = useCallback(() => {
     dispatch(Logout());
@@ -90,40 +91,50 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </LogoMenu>
         <EmptyBlock />
         <ProfileManager data-component="profile-manager">
-          <ProfileManagerName>{userName}</ProfileManagerName>
+          {loading && <CircularProgress />}
 
-          <div>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => setProfileOpen(!profileOpen)}>
-              <ProfileManagerIcon src={userAvatar} alt="user avatar" />
+          {loading == false &&
+            <ProfileManagerName>{userName}</ProfileManagerName>
+          }
 
-              <Box ml={1}>
-                <ProfileManagerButton fontSize="large" />
-              </Box>
-            </Button>
-          </div>
+          {loading == false &&
+            <div>
+              <Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => setProfileOpen(!profileOpen)}>
+                <ProfileManagerIcon src={userAvatar} alt="user avatar" />
 
-          <ProfileManagerMenu>
-            <ProfileManagerPunkt>
-              <SettingsBrightnessIcon />
+                <Box ml={1}>
+                  <ProfileManagerButton fontSize="large" />
+                </Box>
+              </Button>
+            </div>
+          }
 
-              <Switch
-                checked={themeConfiguration.currentTheme == ThemesEnum.dark}
-                onChange={() => themeConfiguration.toggleTheme()}
-                name="theme"
-                color="primary"
-              />
-            </ProfileManagerPunkt>
 
-            <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Profile}><AccountCircleIcon /> Профиль</ProfileManagerItem>
-            <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Settings}><SettingsIcon /> Настройки</ProfileManagerItem>
-            <ProfileManagerPunkt onClick={exitHandel}><ExitToAppIcon /> Выйти</ProfileManagerPunkt>
-          </ProfileManagerMenu>
+          {loading == false &&
+            <ProfileManagerMenu>
+              <ProfileManagerPunkt>
+                <SettingsBrightnessIcon />
+
+                <Switch
+                  checked={themeConfiguration.currentTheme == ThemesEnum.dark}
+                  onChange={() => themeConfiguration.toggleTheme()}
+                  name="theme"
+                  color="primary"
+                />
+              </ProfileManagerPunkt>
+
+              <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Profile}><AccountCircleIcon /> Профиль</ProfileManagerItem>
+              <ProfileManagerItem activeClassName={styles.ActiveLink} to={appRoutes.Settings}><SettingsIcon /> Настройки</ProfileManagerItem>
+              <ProfileManagerPunkt onClick={exitHandel}><ExitToAppIcon /> Выйти</ProfileManagerPunkt>
+            </ProfileManagerMenu>
+          }
+
         </ProfileManager>
       </LayoutHeader>
       <LayoutBody>
         <LayoutMenu>
           <NavItem to={appRoutes.Lessons} activeClassName={styles.ActiveLink}><ViewListIcon fontSize="large" /> <span>Уроки</span></NavItem>
-          <NavItem to="/some" activeClassName={styles.ActiveLink}><InfoIcon fontSize="large" /> <span>О проекте</span></NavItem>
+          <NavItem to={appRoutes.About} activeClassName={styles.ActiveLink}><InfoIcon fontSize="large" /> <span>О проекте</span></NavItem>
 
           <Secure politic={ByRole([UserRoles.Teacher, UserRoles.Admin])}>
             <NavItem to={appRoutes.AdminMain} activeClassName={styles.ActiveLink}><SupervisedUserCircleIcon fontSize="large" /> <span>Админ панель</span></NavItem>
@@ -132,11 +143,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <LayoutContent>
           {children}
         </LayoutContent>
-        <MenuToggler data-component="IconButton" classes={{root: styles.mainToggler}} aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <MenuToggler data-component="IconButton" classes={{ root: styles.mainToggler }} aria-label="toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
           <Burger />
           <Clear />
         </MenuToggler>
       </LayoutBody>
-    </AppLayoutDocument>
+    </AppLayoutDocument >
   );
 };

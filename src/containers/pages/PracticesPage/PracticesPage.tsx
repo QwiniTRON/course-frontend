@@ -37,7 +37,6 @@ type PracticesPageProps = {}
 
 const pageLimit = 16;
 export const PracticesPage: React.FC<PracticesPageProps> = (props) => {
-  const [pageCount, setPageCount] = useState(1);
   const {
     data,
     error,
@@ -47,13 +46,13 @@ export const PracticesPage: React.FC<PracticesPageProps> = (props) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery<AxiosResponse<IApiResponse<GetAllPracticesOrdersResponse>>>(
-    ["practices"], (({ pageParam = 0 }) => {
-      return GetAllPracticesOrders({ page: pageCount.toString()! });
+    ["practices"], (({ pageParam = 1 }) => {
+      return GetAllPracticesOrders({ page: pageParam.toString()!, limit: pageLimit.toString() });
     }) as any,
     {
       getNextPageParam: (lastPage, pages) => {
         let total = lastPage.headers['x-total-count'];
-        let page = pageCount;
+        let page = pages.length + 1;
 
         if (page * pageLimit >= total) return undefined;
 
@@ -94,7 +93,6 @@ export const PracticesPage: React.FC<PracticesPageProps> = (props) => {
               color="secondary"
               disabled={!hasNextPage || isFetchingNextPage}
               onClick={() => {
-                setPageCount(pageCount + 1);
                 fetchNextPage();
               }}>ещё</Button>
           </Box>

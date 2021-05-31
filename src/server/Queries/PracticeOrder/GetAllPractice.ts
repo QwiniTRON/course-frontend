@@ -19,5 +19,5 @@ export const GetAllPracticesOrders: ApiQueryFunction<GetAllPracticesOrdersReques
   if(request?.page) search.set("page", request?.page);
   if(request?.search) search.set("search", request?.search);
 
-  return api.get(`/practice`);
+  return api.get(`/practice?`+search.toString());
 };

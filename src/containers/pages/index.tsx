@@ -9,6 +9,8 @@ export * from './ProfilePage';
 export * from './LessonPage';
 export * from './LessonWork';
 export * from './SignUpPage';
+export * from './AdminUsers';
+export * from './AboutPage';
 export * from './LoginPage';
 export * from './AdminMain';
 export * from './MainPage';

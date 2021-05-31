@@ -13,7 +13,7 @@ export const AdminMain: React.FC<AdminMainProps> = (props) => {
         <Typography variant="h3">Админ панель</Typography>
 
         <AdminContent>
-          <AdminLink to="/some">Пользователи</AdminLink>
+          <AdminLink to={appRoutes.AdminUsers}>Пользователи</AdminLink>
           <AdminLink to={appRoutes.Practices}>Практики</AdminLink>
           <AdminLink to={appRoutes.AdminLessons}>Уроки</AdminLink>
         </AdminContent>

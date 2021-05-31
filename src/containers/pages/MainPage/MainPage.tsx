@@ -15,7 +15,7 @@ export const MainPage: React.FC<MainPageProps> = (props) => {
 
         <Content>
           <MainLink to={appRoutes.Lessons}>Уроки</MainLink>
-          <MainLink to="/some">О проекте</MainLink>
+          <MainLink to={appRoutes.About}>О проекте</MainLink>
         </Content>
       </Container>
     </AppLayout>

@@ -6,7 +6,7 @@ import { SignUpPage } from '../../containers/pages/SignUpPage';
 import { ByAuth, ByRole } from './politics';
 import { routeConfig } from './RouteConfig';
 import { Secure, SecureProps } from './Secure';
-import { AdminLessons, AdminMain, AdminViewLesson, LessonCreate, LessonPage, LessonsPage, LessonWork, PracticePage, PracticesPage, ProfilePage, SettingsPage } from '../../containers';
+import { AboutPage, AdminLessons, AdminMain, AdminUsers, AdminViewLesson, LessonCreate, LessonPage, LessonsPage, LessonWork, PracticePage, PracticesPage, ProfilePage, SettingsPage } from '../../containers';
 import { UserRoles } from '../../models';
 
 type AppRoutesProps = {}
@@ -64,6 +64,13 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
         </AppSecure>
       </Route>
 
+      {/* about page */}
+      <Route {...routeConfig.About}>
+        <AppSecure key="AboutPageSecure" politic={ByAuth()}>
+          <AboutPage key="page" />
+        </AppSecure>
+      </Route>
+
       {/* admin main */}
       <Route {...routeConfig.AdminMain}>
         <AppSecure key="AdminMainSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
@@ -75,6 +82,13 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
       <Route {...routeConfig.Practices}>
         <AppSecure key="PracticesSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
           <PracticesPage key="page" />
+        </AppSecure>
+      </Route>
+
+      {/* admin users */}
+      <Route {...routeConfig.AdminUsers}>
+        <AppSecure key="AdminUsersSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
+          <AdminUsers key="page" />
         </AppSecure>
       </Route>
 

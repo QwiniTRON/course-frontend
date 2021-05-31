@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppRoutes } from '.';
+import { SplashScreen } from '../components';
 import { Init } from './Init';
 
 type AppMainProps = {}
@@ -7,8 +8,8 @@ type AppMainProps = {}
 export const AppMain: React.FC<AppMainProps> = (props) => {
   const isInit = Init();
 
-  if(isInit == false) return <h1>Грузим</h1>
-
+  if(isInit == false) return <SplashScreen />
+  
   return (
     <AppRoutes />
   );

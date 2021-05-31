@@ -38,9 +38,9 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
   const userPractices = useSelector((state: RootState) => state.user.userData?.practiceOrders);
   const lastPractice = userPractices?.sort((l, r) => Date.parse(r.createdDate) - Date.parse(l.createdDate))[0];
 
+  // lesson status
   let isOnProgress = false;
   if (lastPractice && (lastPractice.isDone == false)) isOnProgress = true;
-
   let hasDone = false;
 
   const { data, isError, error, isLoading } = useQuery<AxiosResponse<IApiResponse<GetLessonResponse>>>(
@@ -52,9 +52,9 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
   );
   const loading = isLoading || storeLoading;
 
+  // lesson access check
   const lesson = data?.data?.data;
   lessons?.sort((l, r) => l.index - r.index);
-
   if (lesson) {
     let status = true;
     const prevLesson = lessons?.[lesson.index - 2];
@@ -66,6 +66,7 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
     if (status) return <Redirect to={appRoutes.Lessons} />;
   }
 
+  // id is not found
   if (Boolean(id) == false) {
     return <Redirect to={appRoutes.Lessons} />;
   }
@@ -93,6 +94,7 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
         {loading == false &&
           <>
             <Typography variant="h3">{lesson?.name}</Typography>
+            <Typography variant="body1">{lesson?.description}</Typography>
 
             <Box mt={1} mb={1}>
               <Divider />
@@ -114,7 +116,7 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
           </Box>
         }
 
-        {loading == false && hasDone == false && lastPractice &&
+        {loading == false && hasDone == false && lastPractice && lesson?.isPractice &&
           <div>
             <div>
               дата прохождения: {new Date(lastPractice.createdDate).toLocaleDateString('ru-RU')}

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { AppCard } from '../../../components';
 
-export const AdminLessonsContainer = styled.div`
+export const Container = styled.div`
   padding: ${p => p.theme.spacing(2)}px;
 `;
 
-export const AdminLessonsContent = styled.div`
+export const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
   gap: ${p => p.theme.spacing(2)}px;
@@ -15,12 +15,12 @@ export const AdminLessonsContent = styled.div`
   }
 `;  
 
-export const AdminLessonsItem = styled(AppCard)`
+export const Item = styled(AppCard)`
   width: 100%;
   height: 100%;
 `;
 
-export const AdminLessonsItemItems = styled.div`
+export const ItemItems = styled.div`
   display: grid;
   grid-template-columns: auto auto 1fr;
 

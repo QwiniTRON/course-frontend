@@ -9,5 +9,5 @@ export type ResolvePracticeRequest = {
 export type ResolvePracticeResponse = number
 
 export const ResolvePractice: ApiQueryFunction<ResolvePracticeRequest, ResolvePracticeResponse> = (request, api = appApi) => {
-  return api.put(`/practice/resolve`);
+  return api.put(`/practice/resolve`, request);
 };

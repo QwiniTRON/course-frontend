@@ -7,6 +7,6 @@ export const AppConsts = {
   },
 }
 
-export function appImg(path: string) {
+export function appFiles(path: string) {
   return AppConsts.staticPath + "/" + path;
 }

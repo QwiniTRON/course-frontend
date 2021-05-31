@@ -1,3 +1,4 @@
+export * from './SplashScreen';
 export * from './ThemeToggler';
 export * from './CenterCard';
 export * from './MarkDown';

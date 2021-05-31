@@ -9,5 +9,5 @@ export type RejectPracticeRequest = {
 export type RejectPracticeResponse = number
 
 export const RejectPractice: ApiQueryFunction<RejectPracticeRequest, RejectPracticeResponse> = (request, api = appApi) => {
-  return api.put(`/practice/reject`);
+  return api.put(`/practice/reject`, request);
 };

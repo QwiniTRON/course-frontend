@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { AppConsts, appImg, appRoutes, ByRole, Logout, RootState, Secure, ThemesEnum } from '../../App';
+import { AppConsts, appFiles, appRoutes, ByRole, Logout, RootState, Secure, ThemesEnum } from '../../App';
 import {
   AppLayoutDocument,
   Burger,
@@ -53,7 +53,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   const userData = useSelector((state: RootState) => state.user.userData);
   const userName = userData?.nick ?? "Без имени";
-  const userAvatar = userData?.photo ? appImg(userData?.photo) : AppConsts.DefaultPhotoPath;
+  const userAvatar = userData?.photo ? appFiles(userData?.photo) : AppConsts.DefaultPhotoPath;
 
   const exitHandel = useCallback(() => {
     dispatch(Logout());

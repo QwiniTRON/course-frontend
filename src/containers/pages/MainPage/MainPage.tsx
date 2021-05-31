@@ -1,5 +1,8 @@
+import { Typography } from '@material-ui/core';
 import React from 'react';
+import { appRoutes } from '../../../App';
 import { AppLayout } from '../../../layouts';
+import { Container, MainLink, Content } from './styled';
 
 
 type MainPageProps = {}
@@ -7,7 +10,14 @@ type MainPageProps = {}
 export const MainPage: React.FC<MainPageProps> = (props) => {
   return (
     <AppLayout>
-      прямо. По всей если безопасную все дороге назад не буквенных необходимыми, образ своего, домах текста, ведущими безорфографичный пунктуация.
+      <Container>
+        <Typography variant="h3">Главная страница</Typography>
+
+        <Content>
+          <MainLink to={appRoutes.Lessons}>Уроки</MainLink>
+          <MainLink to="/some">О проекте</MainLink>
+        </Content>
+      </Container>
     </AppLayout>
   );
 };

@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, IconButton, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { appImg, RootState } from '../../../App';
+import { appFiles, RootState } from '../../../App';
 import { AppLayout } from '../../../layouts';
 import { ProfileContainer, NickBlock, useStyles, AvatarButtons } from './styled';
 import { useForm } from 'react-hook-form';
@@ -38,7 +38,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   });
   const newNick = watch("nick");
   const newPhoto = watch("photo");
-  const userPhoto = newPhoto?.[0] ? URL.createObjectURL(newPhoto?.[0]) : appImg(user?.photo!);
+  const userPhoto = newPhoto?.[0] ? URL.createObjectURL(newPhoto?.[0]) : appFiles(user?.photo!);
   const hasPhoto = Boolean(newPhoto?.[0]);
   const nickHasChanged = newNick && (newNick != user?.nick) && (Boolean(errors.nick?.message) == false);
 

@@ -195,6 +195,7 @@ export const LayoutBody = styled.main`
   grid-template-columns: 340px 1fr;
   gap: 0 4px;
   word-break: break-all;
+  padding-bottom: 100px;
 
   ${AppLayoutDocument}[data-menu="true"] & {
     grid-template-columns: ${collapsedMenu} 1fr;

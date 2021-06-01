@@ -25,7 +25,7 @@ const UserCard: React.FC<UserCardProps> = (props) => {
   if (userRole == 2) userRoleString = "админ";
 
   return (
-    <Link key={1} to={appRoutes.getAdminPractice(props.user.id.toString())}>
+    <Link key={1} to={appRoutes.getAdminUser(props.user.id.toString())}>
       <Item>
         <Box textAlign="center">{props.user.nick}</Box>
 

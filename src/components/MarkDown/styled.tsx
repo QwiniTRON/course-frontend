@@ -36,7 +36,7 @@ export const MarkDownContainer = styled.div`
     font-size: 18px;
   }
 
-  img {
+  img, frame, iframe {
     max-width: 100%;
     margin: 10px auto;
     display: block;
@@ -93,5 +93,13 @@ export const MarkDownContainer = styled.div`
   
   tfoot td{
     border-bottom: 2px solid var(--accentColor);
+  }
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: ${p => p.theme.palette.background.paper};
   }
 `;

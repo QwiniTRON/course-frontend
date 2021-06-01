@@ -49,7 +49,7 @@ export const Img = styled.img`
   margin: 0 auto;
   display: block;
 
-  transform-origin: 101px 106px;
+  transform-origin: 101px 115px;
   animation: ${rotate1} 7s infinite linear;
 `;
 

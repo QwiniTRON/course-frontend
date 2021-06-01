@@ -9,6 +9,7 @@ export const routeConfig = {
   Practices: { path: "/admin/practices", exact: true, key: "PracticesRoute" },
   AdminMain: { path: "/admin", exact: true, key: "AdminRoute" },
   LessonPage: { path: "/lessons/:id", exact: true, key: "LessonPageRoute" },
+  AdminUser: { path: "/admin/users/:id", exact: true, key: "AdminUserRoute" },
   AdminUsers: { path: "/admin/users", exact: true, key: "AdminUsersRoute" },
   AdminLesson: { path: "/admin/lessons/:id/view", exact: true, key: "AdminLessonRoute" },
   AdminLessons: { path: "/admin/lessons", exact: true, key: "AdminLessonsRoute" },
@@ -28,6 +29,7 @@ export const appRoutes = {
   Practices: routeConfig.Practices.path,
   AdminMain: routeConfig.AdminMain.path,
   LessonPage: routeConfig.LessonPage.path,
+  AdminUser: routeConfig.AdminUser.path,
   AdminUsers: routeConfig.AdminUsers.path,
   AdminLesson: routeConfig.AdminLesson.path,
   AdminLessons: routeConfig.AdminLessons.path,
@@ -46,5 +48,8 @@ export const appRoutes = {
   },
   getAdminPractice(id: string) {
     return `/admin/practice/${id}`;
+  },
+  getAdminUser(id: string) {
+    return `/admin/users/${id}`;
   }
 }

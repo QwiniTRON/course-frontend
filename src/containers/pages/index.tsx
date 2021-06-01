@@ -10,6 +10,7 @@ export * from './LessonPage';
 export * from './LessonWork';
 export * from './SignUpPage';
 export * from './AdminUsers';
+export * from './AdminUser';
 export * from './AboutPage';
 export * from './LoginPage';
 export * from './AdminMain';

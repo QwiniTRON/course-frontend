@@ -10,3 +10,7 @@ export const AppConsts = {
 export function appFiles(path: string) {
   return AppConsts.staticPath + "/" + path;
 }
+
+export function apiFiles(path: string) {
+  return process.env.REACT_APP_API_ADDRESS! + `/api/v1/files/${path}`;
+}

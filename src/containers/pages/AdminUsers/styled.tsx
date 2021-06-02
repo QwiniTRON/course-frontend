@@ -34,3 +34,10 @@ export const ItemItems = styled.div`
   margin-top: 0.5rem;
   gap: 1rem;
 `;
+
+export const ToolButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+`;

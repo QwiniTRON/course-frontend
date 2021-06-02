@@ -16,6 +16,7 @@ export const AdminMain: React.FC<AdminMainProps> = (props) => {
           <AdminLink to={appRoutes.AdminUsers}>Пользователи</AdminLink>
           <AdminLink to={appRoutes.Practices}>Практики</AdminLink>
           <AdminLink to={appRoutes.AdminLessons}>Уроки</AdminLink>
+          <AdminLink to={appRoutes.AdminInstruction}>инструкция</AdminLink>
         </AdminContent>
       </AdminMainContainer>
     </AppLayout>

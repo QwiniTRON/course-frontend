@@ -1,10 +1,10 @@
-import { Box, Button, CircularProgress, Divider, IconButton, TextField, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Dialog, Divider, IconButton, TextField, Typography } from '@material-ui/core';
 import { AxiosResponse } from 'axios';
 import React, { useRef, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { AppLayout } from '../../../layouts';
 import { IApiResponse, GetAllUsersResponse, GetAllUsers } from '../../../server';
-import { Container, Content, Search, Item, ItemItems } from './styled';
+import { Container, Content, Search, Item, ItemItems, ToolButtons } from './styled';
 import SearchIcon from '@material-ui/icons/Search';
 import { User, UserRoles } from '../../../models';
 import { appRoutes } from '../../../App';
@@ -13,6 +13,11 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import MailIcon from '@material-ui/icons/Mail';
 import WorkIcon from '@material-ui/icons/Work';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
 
 
 type UserCardProps = {
@@ -72,6 +77,8 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
   );
   const loading = isFetching || isFetchingNextPage;
 
+  const [instuctionOpen, setInstructionOpen] = React.useState(false);
+
   const users = data?.pages?.map(el => el.data.data).flat(1) ?? [];
   const cards = [];
 
@@ -119,22 +126,25 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
           </IconButton>
         </Search>
 
-        <Box mb={1}>
+        <ToolButtons>
           <IconButton color="primary" onClick={() => {
-            if(searchRef.current) searchRef.current.value = "";
+            if (searchRef.current) searchRef.current.value = "";
 
             setSearchError("");
             refetch();
           }}>
             <RefreshIcon />
           </IconButton>
-        </Box>
+          <IconButton title="инструкция" onClick={() => setInstructionOpen(true)}>
+            <InfoIcon />
+          </IconButton>
+        </ToolButtons>
         <Divider />
 
         <Content>
           {cards}
 
-          {cards.length == 0 && <Typography variant="body1" color="primary">Пока ничего нет...</Typography>}
+          {isFetching == false && cards.length == 0 && <Typography variant="body1" color="primary">Пока ничего нет...</Typography>}
         </Content>
 
         {(isFetching || isFetchingNextPage) &&
@@ -153,6 +163,19 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
                 fetchNextPage();
               }}>ещё</Button>
           </Box>
+        }
+
+        {isFetching == false &&
+          <Dialog onClose={() => setInstructionOpen(false)} aria-labelledby="customized-dialog-title" open={instuctionOpen}>
+            <MuiDialogTitle id="customized-dialog-title">
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                Инструкция <IconButton onClick={() => setInstructionOpen(false)}><CloseIcon /></IconButton>
+              </Box>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              Список пользователей
+            </MuiDialogContent>
+          </Dialog>
         }
       </Container>
     </AppLayout>

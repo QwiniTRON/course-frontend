@@ -77,7 +77,7 @@ export const PracticesPage: React.FC<PracticesPageProps> = (props) => {
         <Content>
           {cards}
 
-          {cards.length == 0 && <Typography variant="body1" color="primary">Пока ничего нет...</Typography>}
+          {isFetching == false && cards.length == 0 && <Typography variant="body1" color="primary">Пока ничего нет...</Typography>}
         </Content>
 
         {(isFetching || isFetchingNextPage) &&

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, Button, CircularProgress, Divider, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Dialog, Divider, IconButton, Tooltip, Typography } from '@material-ui/core';
 import { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,10 @@ import { Container, Buttons } from './styled';
 import SaveIcon from '@material-ui/icons/Save';
 import { PhotoCamera } from '@material-ui/icons';
 import ClearIcon from '@material-ui/icons/Clear';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
 
 type LessonPageProps = {}
 
@@ -27,6 +31,8 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
 
   const storeLoading = useSelector((state: RootState) => state.user.loading);
   const storeError = useSelector((state: RootState) => state.user.error);
+
+  const [instuctionOpen, setInstructionOpen] = React.useState(false);
 
   const [codeError, setCodeError] = useState("");
 
@@ -96,7 +102,11 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
             <Typography variant="h3">{lesson?.name}</Typography>
             <Typography variant="body1">{lesson?.description}</Typography>
 
-            <Box mt={1} mb={1}>
+            <Box mt={1} pb={2}>
+              <Divider />
+              <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
+                <InfoIcon />
+              </IconButton>
               <Divider />
             </Box>
 
@@ -195,6 +205,27 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
             <Box mt={2} />
             <Button variant="outlined" color="primary" type="submit">Отправить</Button>
           </form>
+        }
+
+        {isLoading == false &&
+          <Dialog onClose={() => setInstructionOpen(false)} aria-labelledby="customized-dialog-title" open={instuctionOpen}>
+            <MuiDialogTitle id="customized-dialog-title">
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                Инструкция <IconButton onClick={() => setInstructionOpen(false)}><CloseIcon /></IconButton>
+              </Box>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              {lesson?.isPractice &&
+                <p>Чтобы завершить урок вам нужно выполнить задание. Напишите ваше решение и упокуйте его в архив.
+                  <br /> Понадобится время на проверку, подождите пока преподователи проверят работу.
+                </p>
+              }
+
+              {lesson?.isPractice == false &&
+                <p>Ознакомтесь с материалом урока и в конце нажмите завершить чтобы окончить урок.</p>
+              }
+            </MuiDialogContent>
+          </Dialog>
         }
       </Container>
     </AppLayout>

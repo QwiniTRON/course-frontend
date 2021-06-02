@@ -3,15 +3,12 @@ import { Box, Button, CircularProgress, Divider, TextField, Typography } from '@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { Redirect, useParams } from 'react-router';
-import { AppConsts, appFiles, appRoutes, RootState } from '../../../App';
+import { apiFiles, AppConsts, appFiles, appRoutes, RootState } from '../../../App';
 import { AppLayout } from '../../../layouts';
 import { IApiResponse, GetPracticeInfoResponse, GetPracticeInfo, RejectPractice, RejectPracticeRequest, ResolvePractice, ResolvePracticeRequest } from '../../../server';
 import { Container, DeleteButton, Buttons, DownloadLink } from './styled';
 import { MarkDown } from '../../../components';
 import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { useForm } from 'react-hook-form';
@@ -19,6 +16,10 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import InfoIcon from '@material-ui/icons/Info';
 
 type PracticePageProps = {}
 
@@ -58,6 +59,7 @@ export const PracticePage: React.FC<PracticePageProps> = (props) => {
 
   const [openReject, setOpenReject] = React.useState(false);
   const [openResolve, setOpenResolve] = React.useState(false);
+  const [instuctionOpen, setInstructionOpen] = React.useState(false);
 
   const rejectHandle = (data: PracticePageInputs) => {
     rejectReq.mutateAsync({ description: data.reason, practiceId: id, teacherId: user?.id.toString()! })
@@ -83,6 +85,14 @@ export const PracticePage: React.FC<PracticePageProps> = (props) => {
     <AppLayout>
       <Container>
         <Typography variant="h3">Проверка практики</Typography>
+        <Box>
+          <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
+            <InfoIcon />
+          </IconButton>
+        </Box>
+        <Box mt={1}>
+          <Divider />
+        </Box>
 
         {loading &&
           <Box mt={2}><CircularProgress /></Box>
@@ -98,14 +108,30 @@ export const PracticePage: React.FC<PracticePageProps> = (props) => {
           </Box>
         }
 
-        {loading == false &&
+        {loading == false && practice &&
           <Box mt={2}>
             <Divider />
-            <DownloadLink href={appFiles(practice?.codePath!)} download><Button variant="contained" color="primary">скачать код</Button></DownloadLink>
+            <DownloadLink
+              title="скачать код ученика"
+              href={apiFiles(practice?.codePath!)}
+              download
+              target="_self"
+              type=".zip,.rar,.7zip,.7z,application/octet-stream"
+            >
+              <Button variant="contained" color="primary">скачать код</Button>
+            </DownloadLink>
             <Divider />
             <Buttons>
-              <DeleteButton color="primary" variant="contained" onClick={() => setOpenReject(true)}>отказать</DeleteButton>
-              <Button variant="contained" color="secondary" onClick={() => setOpenResolve(true)}>принять</Button>
+              <DeleteButton
+                title="отказать"
+                color="primary"
+                variant="contained"
+                onClick={() => setOpenReject(true)}>отказать</DeleteButton>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => setOpenResolve(true)}
+                title="принять">принять</Button>
             </Buttons>
           </Box>
         }
@@ -171,6 +197,20 @@ export const PracticePage: React.FC<PracticePageProps> = (props) => {
           </Dialog>
         }
 
+        {isLoading == false &&
+          <Dialog onClose={() => setInstructionOpen(false)} aria-labelledby="customized-dialog-title" open={instuctionOpen}>
+            <MuiDialogTitle id="customized-dialog-title">
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                Инструкция <IconButton onClick={() => setInstructionOpen(false)}><CloseIcon /></IconButton>
+              </Box>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              <p>Оцените работу ученика исходя из задания. Если она выполнена верно то примите её. Если присутствуют недочёты
+                то откажите и уточните причину, так человеку будет ясно что исправить.
+              </p>
+            </MuiDialogContent>
+          </Dialog>
+        }
 
       </Container>
     </AppLayout>

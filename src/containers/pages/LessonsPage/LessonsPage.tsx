@@ -1,17 +1,18 @@
-import { Box, CircularProgress, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Dialog, Divider, IconButton, Typography } from '@material-ui/core';
 import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { AppLayout } from '../../../layouts';
 import { GetLessons, GetLessonsResponse, IApiResponse } from '../../../server';
 import { Container, LessonsContent, LessonsItem, LessonsItemDisabled } from './styled';
-import MailIcon from '@material-ui/icons/Mail';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import DateRangeIcon from '@material-ui/icons/DateRange';
 import { Link } from 'react-router-dom';
 import { Lesson } from '../../../models/Lesson';
 import { useDispatch, useSelector } from 'react-redux';
 import { appRoutes, RootState, setLessons } from '../../../App';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import CloseIcon from '@material-ui/icons/Close';
+import InfoIcon from '@material-ui/icons/Info';
 
 type LessonsPageProps = {}
 
@@ -54,6 +55,8 @@ export const LessonsPage: React.FC<LessonsPageProps> = (props) => {
   const { data, isError, error, isLoading } = useQuery<AxiosResponse<IApiResponse<GetLessonsResponse>>>(["lessons"], GetLessons as any);
   const user = useSelector((state: RootState) => state.user.userData);
 
+  const [instuctionOpen, setInstructionOpen] = React.useState(false);
+
   let lessons = data?.data.data;
   lessons?.sort((l, r) => l.index - r.index);
 
@@ -68,6 +71,12 @@ export const LessonsPage: React.FC<LessonsPageProps> = (props) => {
     <AppLayout>
       <Container>
         <Typography variant="h3">Уроки</Typography>
+        <Box mt={1} pb={2}>
+          <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
+            <InfoIcon />
+          </IconButton>
+          <Divider />
+        </Box>
 
         <LessonsContent>
           {isLoading && <CircularProgress />}
@@ -85,6 +94,19 @@ export const LessonsPage: React.FC<LessonsPageProps> = (props) => {
             );
           })}
         </LessonsContent>
+
+        {isLoading == false &&
+          <Dialog onClose={() => setInstructionOpen(false)} aria-labelledby="customized-dialog-title" open={instuctionOpen}>
+            <MuiDialogTitle id="customized-dialog-title">
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                Инструкция <IconButton onClick={() => setInstructionOpen(false)}><CloseIcon /></IconButton>
+              </Box>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              <p>Список уроков. Для доступа к следующему уроку нужно пройти предидущий.</p>
+            </MuiDialogContent>
+          </Dialog>
+        }
       </Container>
     </AppLayout>
   );

@@ -1,4 +1,5 @@
 export * from './AdminViewLesson';
+export * from './InstructionPage';
 export * from './PracticesPage';
 export * from './PracticePage';
 export * from './LessonCreate';

@@ -77,7 +77,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
             <RegisterForm onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 fullWidth
-                id="outlined-basic"
+                id="mailInput"
                 label="почта"
                 variant="outlined"
                 key="mailInput"
@@ -90,7 +90,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
 
               <TextField
                 fullWidth
-                id="outlined-basic"
+                id="nickInput"
                 label="ник"
                 variant="outlined"
                 key="nickInput"
@@ -104,7 +104,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
               <SignUpPasswordInputGroup>
                 <TextField
                   fullWidth
-                  id="outlined-basic"
+                  id="passwordInput"
                   label="пароль"
                   variant="outlined"
                   key="passwordInput"
@@ -129,7 +129,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
 
               <TextField
                 fullWidth
-                id="outlined-basic"
+                id="rpasswordInput"
                 label="повторите пароль"
                 variant="outlined"
                 key="rpasswordInput"

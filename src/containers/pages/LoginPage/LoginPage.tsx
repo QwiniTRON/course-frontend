@@ -53,7 +53,7 @@ export const LoginPage: React.FC<LoginPageProps> = (props) => {
             <TextField
               disabled={loading}
               fullWidth
-              id="outlined-basic"
+              id="mailInput"
               label="почта"
               variant="outlined"
               key="mailInput"
@@ -66,7 +66,7 @@ export const LoginPage: React.FC<LoginPageProps> = (props) => {
               <TextField
                 disabled={loading}
                 fullWidth
-                id="outlined-basic"
+                id="passwordInput"
                 label="пароль"
                 variant="outlined"
                 key="passwordInput"

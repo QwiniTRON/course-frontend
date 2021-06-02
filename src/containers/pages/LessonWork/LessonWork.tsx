@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppLayout } from '../../../layouts';
-import { Container } from './styled';
+import { Container, InstructionLink } from './styled';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,8 +8,13 @@ import { useHistory, useParams } from 'react-router';
 import { GetLesson, GetLessonResponse, IApiResponse, EditLesson, EditLessonRequest } from '../../../server';
 import { useMutation, useQuery } from 'react-query';
 import { AxiosResponse } from 'axios';
-import { Box, Button, CircularProgress, TextField, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Dialog, Divider, IconButton, TextField, Typography } from '@material-ui/core';
 import { appRoutes } from '../../../App';
+import InfoIcon from '@material-ui/icons/Info';
+import { DeleteButton } from '../AdminViewLesson/styled';
+import CloseIcon from '@material-ui/icons/Close';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
 
 
 type LessonWorkProps = {}
@@ -38,6 +43,9 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
   const history = useHistory();
   const params = useParams<AdminEditLessonRouteParams>();
   const id = params.id;
+
+  const [instuctionOpen, setInstructionOpen] = useState(false);
+
   const { data, isError, error, isLoading } = useQuery<AxiosResponse<IApiResponse<GetLessonResponse>>>(
     [{ lessonId: id }] as any,
     (r: any) => GetLesson(r.queryKey[0]),
@@ -53,7 +61,7 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
   });
 
   useEffect(() => {
-    if(isLoading == false) {
+    if (isLoading == false) {
       setValue("content", lesson?.content!);
       setValue("description", lesson?.description!);
       setValue("name", lesson?.name!);
@@ -62,7 +70,7 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
   }, [isLoading]);
 
   const handleEdit = (data: LessonWorkInputs) => {
-    editReq.mutateAsync({content: data.content, description: data.description, index: data.index, name: data.name, lessonId: lesson?.id.toString()!})
+    editReq.mutateAsync({ content: data.content, description: data.description, index: data.index, name: data.name, lessonId: lesson?.id.toString()! })
       .then((result) => history.push(appRoutes.getLessonView(lesson?.id.toString()!)));
   }
 
@@ -74,7 +82,14 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
         {isLoading == false && editReq.isLoading == false &&
           <form onSubmit={handleSubmit(handleEdit)}>
             <Typography variant="h3">{lesson?.name}</Typography>
-            <Box mb={2} />
+            <Box>
+              <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
+                <InfoIcon />
+              </IconButton>
+            </Box>
+            <Box mt={1} pb={2}>
+              <Divider />
+            </Box>
 
             <TextField
               fullWidth
@@ -148,6 +163,23 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
           </form>
         }
 
+
+        {isLoading == false &&
+          <Dialog onClose={() => setInstructionOpen(false)} aria-labelledby="customized-dialog-title" open={instuctionOpen}>
+            <MuiDialogTitle id="customized-dialog-title">
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                Инструкция <IconButton onClick={() => setInstructionOpen(false)}><CloseIcon /></IconButton>
+              </Box>
+            </MuiDialogTitle>
+            <MuiDialogContent dividers>
+              <p>Чтобы вставить не внешнуюю картинку, следует вставить ![] (/appstatic/name)</p>
+              <p>все возможности создания разметки можно узнать <InstructionLink
+                href="https://about.gitlab.com/handbook/markdown-guide/"
+                target="_blank">здесь</InstructionLink>
+              </p>
+            </MuiDialogContent>
+          </Dialog>
+        }
       </Container>
     </AppLayout>
   );

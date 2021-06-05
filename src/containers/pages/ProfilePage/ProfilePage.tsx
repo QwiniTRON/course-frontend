@@ -55,6 +55,8 @@ export const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   return (
     <AppLayout>
       <ProfileContainer>
+        <Typography className="fix" key="maintitle" variant="h3">Профиль</Typography>
+
         {loading && <CircularProgress key="loading" />}
 
         <Typography key="mainError" color="error">{mainError}</Typography>

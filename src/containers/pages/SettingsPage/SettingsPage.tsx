@@ -11,6 +11,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = (props) => {
     <AppLayout>
       <SettingsContainer>
         <div key="toggler">
+          <Typography className="fix" variant="h3">Настройки</Typography>
           <Typography variant="body1">
             Тема
           </Typography>

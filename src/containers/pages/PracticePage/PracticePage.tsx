@@ -84,7 +84,7 @@ export const PracticePage: React.FC<PracticePageProps> = (props) => {
   return (
     <AppLayout>
       <Container>
-        <Typography variant="h3">Проверка практики</Typography>
+        <Typography className="fix" variant="h3">Проверка практики</Typography>
         <Box>
           <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
             <InfoIcon />

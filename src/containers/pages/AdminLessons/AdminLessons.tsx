@@ -30,7 +30,8 @@ export const AdminLessons: React.FC<AdminLessonsProps> = (props) => {
   return (
     <AppLayout>
       <AdminLessonsContainer>
-        <Typography variant="h3">Уроки</Typography>
+        <Typography className="fix" variant="h3">Уроки</Typography>
+
         <Box mt={1} pb={2}>
           <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
             <InfoIcon />

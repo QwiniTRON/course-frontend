@@ -93,7 +93,7 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
   return (
     <AppLayout>
       <Container>
-        <Typography color="error">{storeError}</Typography>
+        <Typography className="fix" color="error">{storeError}</Typography>
 
         {loading && <CircularProgress />}
 

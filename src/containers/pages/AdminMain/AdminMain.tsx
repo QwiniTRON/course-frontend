@@ -10,7 +10,7 @@ export const AdminMain: React.FC<AdminMainProps> = (props) => {
   return (
     <AppLayout>
       <AdminMainContainer>
-        <Typography variant="h3">Админ панель</Typography>
+        <Typography className="fix" variant="h3">Админ панель</Typography>
 
         <AdminContent>
           <AdminLink to={appRoutes.AdminUsers}>Пользователи</AdminLink>

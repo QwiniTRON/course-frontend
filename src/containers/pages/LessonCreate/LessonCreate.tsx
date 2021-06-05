@@ -26,7 +26,8 @@ const schema = Yup.object().shape({
   }),
   name: Yup.string().required("поле обязательно"),
   description: Yup.string().required("поле обязательно"),
-  content: Yup.string().required("поле обязательно")
+  content: Yup.string().required("поле обязательно"),
+  isPractice: Yup.boolean()
 });
 
 export const LessonCreate: React.FC<LessonCreateProps> = (props) => {
@@ -38,7 +39,7 @@ export const LessonCreate: React.FC<LessonCreateProps> = (props) => {
   });
 
   const handleCreate = (data: LessonCreateInputs) => {
-    createReq.mutateAsync({content: data.content, description: data.description, index: parseInt(data.index), isPractice: data.isPractice, name: data.name})
+    createReq.mutateAsync({ content: data.content, description: data.description, index: parseInt(data.index), isPractice: data.isPractice ?? false, name: data.name })
       .then(result => {
         history.push(appRoutes.getLessonView(result.data.data));
       });
@@ -52,7 +53,7 @@ export const LessonCreate: React.FC<LessonCreateProps> = (props) => {
 
         {createReq.isLoading == false &&
           <form onSubmit={handleSubmit(handleCreate)}>
-            <Typography variant="h3">Создание урока</Typography>
+            <Typography className="fix" variant="h3">Создание урока</Typography>
             <Box mb={2} />
 
             <TextField
@@ -101,6 +102,7 @@ export const LessonCreate: React.FC<LessonCreateProps> = (props) => {
             <TextField
               fullWidth
               multiline
+              rowsMax="40"
               id="outlined-basic2"
               label="содержание"
               variant="outlined"
@@ -109,12 +111,20 @@ export const LessonCreate: React.FC<LessonCreateProps> = (props) => {
               error={Boolean(errors.content?.message)}
               helperText={errors.content?.message}
               {...register("content")}
-              onChange={(e) => setValue("content", e.target.value)}
+              onChange={(e) => {
+                e.preventDefault();
+                setValue("content", e.target.value);
+              }}
             />
             <Box mb={2} />
 
             <FormControlLabel
-              control={<Switch {...register("isPractice")} />}
+              control={
+                <Switch
+                  {...register("isPractice")}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue("isPractice", e.target.checked as any)}
+                />
+              }
               label="практика"
             />
             <Box mb={2} />

@@ -9,6 +9,7 @@ export const InstructionPage: React.FC<InstructionPageProps> = (props) => {
   return (
     <AppLayout>
       <Container>
+        <Typography className="fix" variant="h3">Инструкция</Typography>
         <Typography variant="body1">
           Из это панели можно управлять проектом.
         </Typography>

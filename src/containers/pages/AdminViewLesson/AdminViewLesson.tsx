@@ -38,7 +38,7 @@ export const AdminViewLesson: React.FC<AdminViewLessonProps> = (props) => {
 
         {isLoading == false && deleteReq.isLoading == false &&
           <>
-            <Typography variant="h3">{lesson?.name}</Typography>
+            <Typography className="fix" variant="h3">{lesson?.name}</Typography>
             <Typography variant="body1">номер: {lesson?.index}</Typography>
             <Typography variant="body1">тип: {lesson?.isPractice ? "практика" : "теория"}</Typography>
 

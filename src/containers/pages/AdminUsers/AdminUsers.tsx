@@ -102,7 +102,7 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
   return (
     <AppLayout>
       <Container>
-        <Typography variant="h3">Пользователи</Typography>
+        <Typography className="fix" variant="h3">Пользователи</Typography>
 
         <Search onSubmit={(e: React.FormEvent) => {
           e.preventDefault();

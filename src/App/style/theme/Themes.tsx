@@ -130,5 +130,14 @@ export const GlobalOverrideDark = createGlobalStyle`
 
 `;
 export const CommonStyles = createGlobalStyle`
+  img {
+    max-width: 100%;
+  }
+
+  ${p => p.theme.breakpoints.down("xs")} {
+    h3.fix {
+      font-size: 24px;
+    }
+  }
 `;
 // --some-var-for-override: ${props.theme.some};

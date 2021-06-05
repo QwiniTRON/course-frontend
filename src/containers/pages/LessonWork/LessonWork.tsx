@@ -81,7 +81,7 @@ export const LessonWork: React.FC<LessonWorkProps> = (props) => {
 
         {isLoading == false && editReq.isLoading == false &&
           <form onSubmit={handleSubmit(handleEdit)}>
-            <Typography variant="h3">{lesson?.name}</Typography>
+            <Typography className="fix" variant="h3">{lesson?.name}</Typography>
             <Box>
               <IconButton title="инструкция" color="primary" onClick={() => setInstructionOpen(true)}>
                 <InfoIcon />

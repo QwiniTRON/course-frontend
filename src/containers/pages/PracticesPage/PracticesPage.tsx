@@ -72,7 +72,7 @@ export const PracticesPage: React.FC<PracticesPageProps> = (props) => {
   return (
     <AppLayout>
       <Container>
-        <Typography variant="h3">Практики пользователей</Typography>
+        <Typography className="fix" variant="h3">Практики пользователей</Typography>
 
         <Content>
           {cards}

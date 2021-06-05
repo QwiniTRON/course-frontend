@@ -1,16 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { AppColor } from '../../../App/style/theme/utilities/Colors';
 
 export const Container = styled.div`
   padding: ${p => p.theme.spacing(2)}px;
-`;
-
-export const Content = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${p => p.theme.spacing(2)}px;
-  margin-top: 16px;
 `;
 
 export const MainLink = styled(Link)`
@@ -24,4 +17,10 @@ export const MainLink = styled(Link)`
   &:hover {
     background-color: ${p => AppColor.From(p.theme.palette.accentBlue.main).changeOpacity(-80).toRgba()};
   }
+`;
+
+export const Content = styled.div`
+  display: flex;
+  gap: ${p => p.theme.spacing(2)}px;
+  margin-top: 16px;
 `;

@@ -1,39 +1,48 @@
 import styled from 'styled-components';
 
 export const MarkDownContainer = styled.div`
+  padding: 0.5rem;
+
   p {
     font-size: 18px;
-    margin-bottom: 15px;
+    margin: 0.5rem 0;
   }
 
   h1 {
     font-size: 36px;
-    font-weight: 500;
-    margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
 
   h2 {
     font-size: 24px;
-    font-weight: 500;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
 
   h3 {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
 
   h4 {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
 
   h5 {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
 
   li {
     font-size: 18px;
+  }
+  ul {
+    padding-left: 1rem;
   }
 
   img, frame, iframe {
@@ -44,7 +53,7 @@ export const MarkDownContainer = styled.div`
 
   a {
     font-size: 18px;
-    color: ${p => p.theme.palette.secondary.main};
+    color: ${p => p.theme.palette.primary.main};
     text-decoration: underline;
   }
 
@@ -85,6 +94,11 @@ export const MarkDownContainer = styled.div`
     border-width: 0 0 1px;
     font-size: 18px;
   }
+
+  img + em { 
+    display: block;
+    text-align: center;
+  }
   
   th {
     border-bottom: 2px solid var(--accentColor);
@@ -101,5 +115,11 @@ export const MarkDownContainer = styled.div`
     padding: 1rem;
     border-radius: 1rem;
     background-color: ${p => p.theme.palette.background.paper};
+    word-break: break-all;
+    word-wrap: break-word;
+    width: 100%;
+    max-width: 100%;
+    white-space: pre-wrap;
+    margin: 1rem 0;
   }
 `;

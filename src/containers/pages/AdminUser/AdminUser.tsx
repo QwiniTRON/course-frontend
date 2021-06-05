@@ -65,7 +65,7 @@ export const AdminUser: React.FC<AdminUserProps> = (props) => {
         {loading && <CircularProgress />}
 
         {isLoading == false && user &&
-          <Typography variant="h3">{user.nick}</Typography>
+          <Typography className="fix" variant="h3">{user.nick}</Typography>
         }
 
         {isLoading == false &&

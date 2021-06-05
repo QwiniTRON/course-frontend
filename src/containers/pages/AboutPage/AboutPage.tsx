@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppLayout } from '../../../layouts';
-import { Container, Content, Img, ImgLove, Planets } from './styled';
+import { Container, Content, Img, ImgLove, Planets, AboutImg } from './styled';
 import ReactImage from '../../../appstatic/react_img.png';
 import ReactLove from '../../../appstatic/react_logo.svg';
 import { Box, Divider, Typography } from '@material-ui/core';
@@ -31,7 +31,7 @@ export const AboutPage: React.FC<AboutPageProps> = (props) => {
             Данный проект поможет вам изучить технологию React.js и понять её преимущества и недостатки.
           </Typography>
 
-          <AppImg alt="react" src={reactMaterial} />
+          <AboutImg alt="react" src={reactMaterial} />
           <Typography variant="body1">
             React — JavaScript-библиотека с открытым исходным кодом
             для разработки пользовательских интерфейсов. React разрабатывается и
@@ -39,7 +39,7 @@ export const AboutPage: React.FC<AboutPageProps> = (props) => {
             разработчиков и корпораций. React может использоваться
             для разработки одностраничных и мобильных приложений
           </Typography>
-          <AppImg alt="react" src={globalImg} />
+          <AboutImg alt="react" src={globalImg} />
           <Typography variant="body1">
             В ходе курса мы изучим с вами react от основ до продвинутых тем. Надеемся что вам понравится. Давайте учиться вместе.
           </Typography>

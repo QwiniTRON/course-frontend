@@ -2,7 +2,7 @@ import { Box, Divider, Typography } from '@material-ui/core';
 import React from 'react';
 import { appRoutes } from '../../../App';
 import { AppLayout } from '../../../layouts';
-import { Container, MainLink, Content } from './styled';
+import { Container, MainLink, Content, MainImg } from './styled';
 import mainReact from '../../../appstatic/react_main.jpeg';
 import neonReact from '../../../appstatic/react_neon.png';
 import { AppImg } from '../../../components';
@@ -30,7 +30,7 @@ export const MainPage: React.FC<MainPageProps> = (props) => {
             и улучшение понимания, закрепления и повторения материала студентами по технологии React.js.
           </p>
 
-          <AppImg src={mainReact} alt="main react" />
+          <MainImg src={mainReact} alt="main react" />
 
           <p>
             На данном сайте вы можете найти материалы по технологии React.js.
@@ -38,7 +38,7 @@ export const MainPage: React.FC<MainPageProps> = (props) => {
             отработать знания на практике и услышать конструктивную критику.
           </p>
 
-          <AppImg src={neonReact} alt="neon react" />
+          <MainImg src={neonReact} alt="neon react" />
         </Box>
 
         <Content>

@@ -14,5 +14,8 @@ export const MainImage = styled.img`
   margin: ${p => p.theme.spacing(2)}px 0px;
   box-shadow: 0 0 16px 0 #000, 0 24px 16px -20px #4d7cff;
 
+  object-fit: cover;
+  object-position: center;
+
   animation: ${ShadowAnimate} 1s infinite alternate;
 `;

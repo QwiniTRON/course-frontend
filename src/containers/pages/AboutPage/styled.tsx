@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { AppImg } from '../../../components';
 
 export const Container = styled.div`
   padding: ${p => p.theme.spacing(2)}px;
@@ -64,4 +65,12 @@ export const ImgLove = styled.img`
   transform: translateZ(450px) translateY(-45px);
   transform-origin: center;
   animation: ${rotate} 7s infinite linear;
+`;
+
+export const AboutImg = styled(AppImg)`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  aspect-ratio: 4 / 3;
 `;

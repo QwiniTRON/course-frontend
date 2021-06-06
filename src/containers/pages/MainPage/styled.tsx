@@ -32,4 +32,5 @@ export const MainImg = styled(AppImg)`
   margin-right: auto;
   max-width: 600px;
   aspect-ratio: 4 / 3;
+  width: 100%;
 `;

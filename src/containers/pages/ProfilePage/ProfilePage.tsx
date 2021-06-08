@@ -91,7 +91,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (props) => {
         <Box mb={1} key="box4" />
         <div key="Avatar">
           <input
-            accept="image/*"
+            accept="image/*;capture=camera"
             key="photoInput"
             className="visually-hidden"
             id="userPhoto"

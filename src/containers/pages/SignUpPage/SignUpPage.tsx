@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PhotoCamera } from '@material-ui/icons';
-import ClearIcon from '@material-ui/icons/Clear'; 
+import ClearIcon from '@material-ui/icons/Clear';
 import { useHistory } from 'react-router';
 
 
@@ -38,14 +38,14 @@ const schema = Yup.object().shape({
 export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  
+
   const styles = useStyles();
   const loading = useSelector((state: RootState) => state.user.loading);
   const signUpError = useSelector((state: RootState) => state.user.error);
 
   const [isHide, setIsHide] = useState(true);
 
-  const { register, formState: { errors }, handleSubmit, getValues, watch, reset } = useForm<SignUpInputs>({
+  const { register, formState: { errors }, handleSubmit, getValues, watch, reset, setValue } = useForm<SignUpInputs>({
     resolver: yupResolver(schema),
     mode: "onBlur"
   });
@@ -55,10 +55,10 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
   const hasPhoto = Boolean(formValues?.photo?.[0]);
 
   const onSubmit = (data: SignUpInputs) => {
-    if(loading === false) {
-      const signUp = dispatch(SignUp({mail: data.mail.trim(), nick: data.nick.trim(), password: data.password.trim(), userPhoto: data.photo[0]}));
+    if (loading === false) {
+      const signUp = dispatch(SignUp({ mail: data.mail.trim(), nick: data.nick.trim(), password: data.password.trim(), userPhoto: data.photo[0] }));
       (signUp as any).then((signUpResult: boolean) => {
-        if(signUpResult) history.push(appRoutes.App);
+        if (signUpResult) history.push(appRoutes.App);
       });
     }
   };
@@ -145,7 +145,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 <Typography>Аватар пользователя</Typography>
               </Box>
               <input
-                accept="image/*"
+                accept="image/*;capture=camera"
                 key="photoInput"
                 className="visually-hidden"
                 id="userPhoto"
@@ -169,7 +169,9 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 </label>
                 {hasPhoto &&
                   <IconButton aria-label="clear avatar" onClick={() => {
-                    reset({ photo: undefined });
+                    // reset({ photo: undefined });
+                    // reset("photo", undefined);
+                    setValue("photo", undefined as any);
                   }}>
                     <ClearIcon />
                   </IconButton>
@@ -183,7 +185,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 </Button>
                 <AppLink to={appRoutes.Login} key="signuplink">
                   Есть аккаунт? Войдите.
-              </AppLink>
+                </AppLink>
               </SignUpFooter>
             </RegisterForm>
           </div>

@@ -1,3 +1,4 @@
+import { reduceFileSize } from "../../../utils";
 import { ApiQueryFunction } from "../../ApiClient";
 import { appApi } from "../../ApiConfigure";
 
@@ -12,12 +13,20 @@ export type SignUpRequest = {
   userPhoto?: File
 }
 
-export const SignUpQuery: ApiQueryFunction<SignUpRequest, SignUpResponse> = (request, api = appApi) => {
+export const SignUpQuery: ApiQueryFunction<SignUpRequest, SignUpResponse> = async (request, api = appApi) => {
   const userData = new FormData();
   userData.set("Mail", request?.mail!);
   userData.set("Nick", request?.nick!);
   userData.set("Password", request?.password!);
 
-  if (request?.userPhoto && request.userPhoto instanceof File) userData.set("UserPhoto", request?.userPhoto!, request?.userPhoto?.name);
+  if (request?.userPhoto && request.userPhoto instanceof File) {
+    const photo = await new Promise((resolve) => {
+      reduceFileSize(request?.userPhoto, 90 * 90, 100, 100, 0.6, (blob: any) => {
+        resolve(blob);
+      });
+    });
+    
+    userData.set("UserPhoto", photo as File, request?.userPhoto?.name);
+  }
   return api.post("/account/signup", userData, { headers: { MimeType: "multipart/form-data" } });
 };

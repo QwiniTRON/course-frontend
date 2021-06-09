@@ -11,7 +11,13 @@ export const InstructionPage: React.FC<InstructionPageProps> = (props) => {
       <Container>
         <Typography className="fix" variant="h3">Инструкция</Typography>
         <Typography variant="body1">
-          Из это панели можно управлять проектом.
+          В панели администратора есть доступ ко всем сущностям проекта.
+        </Typography>
+        <Typography variant="body1">
+          Можно управлять пользователями, уроками, а также проверять практики пользователей.
+        </Typography>
+        <Typography variant="body1">
+          Для доступа к выше перечисленным пунктам, необходимо пройти по соответствующим пунктам.
         </Typography>
       </Container>
     </AppLayout>

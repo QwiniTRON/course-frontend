@@ -19,7 +19,7 @@ export const SignUpQuery: ApiQueryFunction<SignUpRequest, SignUpResponse> = asyn
   userData.set("Nick", request?.nick!);
   userData.set("Password", request?.password!);
 
-  if (request?.userPhoto && request.userPhoto instanceof File) {
+  if (request?.userPhoto) {
     const photo = await new Promise((resolve) => {
       reduceFileSize(request?.userPhoto, 90 * 90, 100, 100, 0.6, (blob: any) => {
         resolve(blob);

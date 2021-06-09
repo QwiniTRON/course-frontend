@@ -14,7 +14,7 @@ export const ChangeUserAvatar: ApiQueryFunction<ChangeUserAvatarRequest, ChangeU
   requestData.set("userId", request?.userId.toString()!);
 
   const photo = await new Promise((resolve) => {
-    reduceFileSize(request?.newPhoto!, 90 * 90, 100, 100, 0.6, (blob: any) => {
+    reduceFileSize(request?.newPhoto!, 90 * 90, 100, 100, 0.2, (blob: any) => {
       resolve(blob);
     });
   });

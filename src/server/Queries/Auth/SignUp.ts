@@ -18,7 +18,6 @@ export const SignUpQuery: ApiQueryFunction<SignUpRequest, SignUpResponse> = (req
   userData.set("Nick", request?.nick!);
   userData.set("Password", request?.password!);
 
-  if (request?.userPhoto) userData.set("UserPhoto", request?.userPhoto!, request?.userPhoto?.name);
-
-  return api.post("/account/signup", userData);
+  if (request?.userPhoto && request.userPhoto instanceof File) userData.set("UserPhoto", request?.userPhoto!, request?.userPhoto?.name);
+  return api.post("/account/signup", userData, { headers: { MimeType: "multipart/form-data" } });
 };

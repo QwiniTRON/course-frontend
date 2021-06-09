@@ -32,7 +32,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   const loading = useSelector((state: RootState) => state.user.loading);
   const mainError = useSelector((state: RootState) => state.user.error);
 
-  const { register, formState: { errors }, watch, reset } = useForm<ProfileInputs>({
+  const { register, formState: { errors }, watch, reset, setValue } = useForm<ProfileInputs>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -91,13 +91,17 @@ export const ProfilePage: React.FC<ProfilePageProps> = (props) => {
         <Box mb={1} key="box4" />
         <div key="Avatar">
           <input
-            accept="image/*;capture=camera"
+            accept="image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/tiff,image/vnd.microsoft.icon,image/vnd.wap.wbmp,image/webp,image/*"
             key="photoInput"
             className="visually-hidden"
             id="userPhoto"
             type="file"
             disabled={loading}
             {...register("photo")}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const files = (e?.nativeEvent?.target as any)?.files;
+              setValue("photo", files);
+            }}
           />
           <label htmlFor="userPhoto">
             <Button

@@ -81,6 +81,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 label="почта"
                 variant="outlined"
                 key="mailInput"
+                type="mail"
                 disabled={loading}
                 error={Boolean(errors.mail?.message)}
                 helperText={errors.mail?.message}
@@ -145,12 +146,16 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 <Typography>Аватар пользователя</Typography>
               </Box>
               <input
-                accept="image/*;capture=camera"
+                accept="image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/tiff,image/vnd.microsoft.icon,image/vnd.wap.wbmp,image/webp,image/*"
                 key="photoInput"
                 className="visually-hidden"
                 id="userPhoto"
                 type="file"
                 {...register("photo")}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const files = (e?.nativeEvent?.target as any)?.files;
+                  setValue("photo", files);
+                }}
               />
               <label htmlFor="userPhoto">
                 <Button
@@ -169,8 +174,6 @@ export const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 </label>
                 {hasPhoto &&
                   <IconButton aria-label="clear avatar" onClick={() => {
-                    // reset({ photo: undefined });
-                    // reset("photo", undefined);
                     setValue("photo", undefined as any);
                   }}>
                     <ClearIcon />

@@ -212,7 +212,7 @@ export function Login(loginData: UserLoginRequest) {
 export function SignUp(request: SignUpRequest) {
   return async function (dispatch: Function, getState: () => RootState) {
     dispatch(setLoading(true));
-
+    
     let signUpAnswer;
 
     try {
@@ -234,7 +234,7 @@ export function SignUp(request: SignUpRequest) {
       } catch (err) { }
     }
 
-    dispatch(setError(""));
+    if(signUpAnswer?.data?.succeeded) dispatch(setError(""));
     dispatch(setLoading(false));
 
     if (signUpAnswer?.data?.succeeded && currentUserAnswer?.data?.succeeded) return true;

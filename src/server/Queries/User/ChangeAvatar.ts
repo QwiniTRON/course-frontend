@@ -13,5 +13,5 @@ export const ChangeUserAvatar: ApiQueryFunction<ChangeUserAvatarRequest, ChangeU
   requestData.set("userId", request?.userId.toString()!);
   requestData.set("newPhoto", request?.newPhoto!, request?.newPhoto.name);
 
-  return api.put("/user/photo", requestData);
+  return api.put("/user/photo", requestData, { headers: { MimeType: "multipart/form-data" } });
 };

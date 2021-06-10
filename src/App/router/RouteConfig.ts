@@ -1,3 +1,5 @@
+import { generatePath } from "react-router-dom";
+
 export const routeConfig = {
   App: { path: "/", exact: true, key: "AppRoute" },
   Login: { path: "/login", exact: true, key: "LoginRoute" },
@@ -40,6 +42,9 @@ export const appRoutes = {
   AdminLessonCreate: routeConfig.AdminLessonCreate.path,
 
   getLessonView(id: string) {
+    // return generatePath("/user/:id/:entity(posts|comments)", {
+    //   id: 1,
+    // });
     return `/admin/lessons/${id}/view`;
   },
   getLessonEdit(id: string) {

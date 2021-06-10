@@ -1,6 +1,7 @@
 export const AppConsts = {
   defaultPhoto: "default.png",
   staticPath: '/files',
+  maxFileSize: 2.5e7,
 
   get DefaultPhotoPath() {
     return this.staticPath + "/" + this.defaultPhoto;

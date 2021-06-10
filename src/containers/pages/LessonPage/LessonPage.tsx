@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router';
-import { AddProgress, AddUserPracticeOrder, appRoutes, RootState } from '../../../App';
+import { AddProgress, AddUserPracticeOrder, AppConsts, appRoutes, RootState } from '../../../App';
 import { MarkDown } from '../../../components';
 import { AppLayout } from '../../../layouts';
 import { GetLesson, GetLessonResponse, IApiResponse } from '../../../server';
@@ -22,6 +22,7 @@ type LessonPageProps = {}
 type LessonPageRouteParams = {
   id: string
 }
+
 
 export const LessonPage: React.FC<LessonPageProps> = (props) => {
   const dispatch = useDispatch();
@@ -86,6 +87,8 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
 
   const addPracticeHandle = () => {
     if (Boolean(userCode) == false) return setCodeError("выбирите архив с готовым проектом");
+    if(AppConsts.maxFileSize <= userCode?.size!) return setCodeError(`Размер файла не должен превышать ${AppConsts.maxFileSize / 1e6}мб`);
+    
     dispatch(AddUserPracticeOrder({ codeFile: userCode!, lessonId: lesson?.id.toString()!, userId: user?.id.toString()! }));
   }
 

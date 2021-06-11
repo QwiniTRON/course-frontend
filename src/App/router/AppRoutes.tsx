@@ -87,7 +87,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = (props) => {
 
       {/* admin users */}
       <Route {...routeConfig.AdminUsers}>
-        <AppSecure key="AdminUsersSecure" politic={ByRole([UserRoles.Admin, UserRoles.Teacher])}>
+        <AppSecure key="AdminUsersSecure" politic={ByRole([UserRoles.Admin])}>
           <AdminUsers key="page" />
         </AppSecure>
       </Route>

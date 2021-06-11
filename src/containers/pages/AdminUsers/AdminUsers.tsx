@@ -8,7 +8,7 @@ import { Container, Content, Search, Item, ItemItems, ToolButtons } from './styl
 import SearchIcon from '@material-ui/icons/Search';
 import { User, UserRoles } from '../../../models';
 import { appRoutes } from '../../../App';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import MailIcon from '@material-ui/icons/Mail';
 import WorkIcon from '@material-ui/icons/Work';
@@ -50,6 +50,9 @@ const pageLimit = 8;
 export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
   const [searchError, setSearchError] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
+  // const history = useHistory();
+  // const location = useLocation();
+  // const searchPage = Number(new URLSearchParams(location.search).get("page") ?? 1);
 
   const {
     data,
@@ -70,6 +73,7 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
         let page = pages.length + 1;
 
         if (page * pageLimit > total) return undefined;
+        // history.push(appRoutes.AdminUsers + "?page=" + page);
 
         return page;
       }

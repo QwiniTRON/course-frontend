@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { CommonStyles, DarkThemeConfig, GlobalOverrideDark, GlobalOverrideLight, LightThemeConfig } from './Themes';
@@ -19,7 +19,6 @@ export type ThemeContextProps = {
   currentTheme: string
 }
 export const AppThemeContext = React.createContext<ThemeContextProps>({ toggleTheme: () => "", currentTheme: "dark" });
-
 
 export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
   const [isDark, setIsDark] = useState(() => !Boolean(localStorage.getItem(ThemeLocalstorageKey) == ThemesEnum.light));
@@ -45,11 +44,11 @@ export const StyleProvider: React.FC<StyleProviderProps> = function (props) {
     return newCurrentTheme;
   }
 
-  let theme = DarkThemeConfig;
+  let theme = Object.assign({}, DarkThemeConfig);
   if (isDark === false) {
-    theme = LightThemeConfig;
+    theme = Object.assign({}, LightThemeConfig);
   }
-  // console.log(theme);
+  (window as any).APP_THEME = theme;
 
   let Override = GlobalOverrideDark;
   if (isDark === false) Override = GlobalOverrideLight;

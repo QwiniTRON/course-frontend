@@ -41,7 +41,7 @@ export const AboutPage: React.FC<AboutPageProps> = (props) => {
           </Typography>
           <AboutImg alt="react" src={globalImg} />
           <Typography variant="body1">
-            В ходе курса мы изучим с вами react от основ до продвинутых тем. Надеемся что вам понравится. Давайте учиться вместе.
+            В ходе курса мы изучим с вами React от основ до продвинутых тем. Надеемся, что вам понравится. Давайте учиться вместе.
           </Typography>
           <Typography variant="h5">
             Для написания материалов к курсу использовались материалы сайта - https://metanit.com/

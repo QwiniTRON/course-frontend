@@ -5,6 +5,9 @@ export const Container = styled.div`
   padding: ${p => p.theme.spacing(2)}px;
   overflow: hidden;
   height: 100%;
+
+  width: min(1024px, 100%);
+  margin: 0 auto;
 `;
 
 export const Content = styled.div`

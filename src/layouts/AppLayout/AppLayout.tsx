@@ -56,6 +56,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const userAvatar = userData?.photo ? appFiles(userData?.photo) : AppConsts.DefaultPhotoPath;
   const loading = Boolean(userData) == false;
 
+
   const exitHandel = useCallback(() => {
     dispatch(Logout());
   }, []);
@@ -77,6 +78,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       document.documentElement.removeEventListener("touchend", outClick as any);
     }
   }, []);
+
 
   return (
     <AppLayoutDocument key="AppLayout" data-menu={menuOpen.toString()} data-profile-menu={profileOpen.toString()}>
@@ -102,7 +104,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               <Button aria-controls="simple-menu" aria-haspopup="true" onClick={() => setProfileOpen(!profileOpen)}>
                 <ProfileManagerIcon src={userAvatar} alt="user avatar" />
 
-                <Box ml={1}>
+                <Box ml={1} lineHeight="0">
                   <ProfileManagerButton fontSize="large" />
                 </Box>
               </Button>

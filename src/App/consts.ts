@@ -13,5 +13,5 @@ export function appFiles(path: string) {
 }
 
 export function apiFiles(path: string) {
-  return process.env.REACT_APP_API_ADDRESS! + `/api/v1/files/${path}`;
+  return `/api/v1/files/${path}`;
 }

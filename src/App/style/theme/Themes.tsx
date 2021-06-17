@@ -22,7 +22,7 @@ import {
   LayoutColor,
   appColors
 } from './ThemeColors';
-import {DefaultTheme} from 'styled-components';
+import { DefaultTheme } from 'styled-components';
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {

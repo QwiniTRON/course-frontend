@@ -28,6 +28,7 @@ export const ProfileManager = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
 
   position: relative;
 `;
@@ -94,12 +95,10 @@ export const ProfileManagerPunkt = styled.div`
 
 export const ProfileManagerName = styled.div`
   word-break: break-all;
-  word-wrap: break-word;
+  padding: 0 0.5rem 0 0;
 `;
 
 export const LayoutContent = styled.div`
-  word-break: break-all;
-  word-wrap: break-word;
 `;
 
 export const LayoutMenu = styled.nav`
@@ -177,6 +176,7 @@ export const LayoutHeader = styled.header`
     }
     &{
       grid-template-columns: 75px 0 1fr !important;
+      gap: 2px;
     }
 
     ${AppLayoutDocument}[data-menu="true"] {
@@ -194,7 +194,6 @@ export const LayoutBody = styled.main`
   display: grid;
   grid-template-columns: 340px 1fr;
   gap: 0 4px;
-  word-break: break-all;
   padding-bottom: 100px;
 
   ${AppLayoutDocument}[data-menu="true"] & {
@@ -252,7 +251,7 @@ export const MenuToggler = styled(IconButton)`
   transition: transform 0.2s, background-color 0.3s;
   color: ${props => props.theme.palette.layout.contrast} !important;
 
-  button&:hover {
+  button&&:hover {
     background-color: ${props => props.theme.palette.accentBlue.main};
   }
 
@@ -270,7 +269,7 @@ export const MenuToggler = styled(IconButton)`
   }
 
   @media screen and (max-width: ${mobileModeMedia}) {
-    button&{
+    button&&{
       padding: 16px;
       background-color: ${props => props.theme.palette.layout.paper};
       border: 1px solid ${props => props.theme.palette.layout.border};
@@ -280,6 +279,14 @@ export const MenuToggler = styled(IconButton)`
       right: ${props => props.theme.spacing(2)}px;
       z-index: 25;
     }
+  }
+`;
+
+export const MainMenuToggler = styled(IconButton)`
+  display: none;
+
+  @media screen and (max-width: 724px){
+    display: block;
   }
 `;
 

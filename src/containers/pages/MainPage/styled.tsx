@@ -5,6 +5,9 @@ import { AppImg } from '../../../components';
 
 export const Container = styled.div`
   padding: ${p => p.theme.spacing(2)}px;
+
+  width: min(1024px, 100%);
+  margin: 0 auto;
 `;
 
 export const MainLink = styled(Link)`
@@ -23,7 +26,7 @@ export const MainLink = styled(Link)`
 export const Content = styled.div`
   display: flex;
   gap: ${p => p.theme.spacing(2)}px;
-  margin-top: 16px;
+  margin-top: 2rem;
 `;
 
 export const MainImg = styled(AppImg)`

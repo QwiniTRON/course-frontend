@@ -5,7 +5,7 @@ export type CreateLessonRequest = {
   index: number,
   name: string,
   description: string,
-  content: string,
+  Content: string,
   isPractice: boolean
 }
 

@@ -73,7 +73,6 @@ export const AdminUsers: React.FC<AdminUsersProps> = (props) => {
         let page = pages.length + 1;
 
         if (page * pageLimit > total) return undefined;
-        // history.push(appRoutes.AdminUsers + "?page=" + page);
 
         return page;
       }

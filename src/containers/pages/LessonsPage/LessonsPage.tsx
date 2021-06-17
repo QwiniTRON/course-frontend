@@ -65,8 +65,7 @@ export const LessonsPage: React.FC<LessonsPageProps> = (props) => {
       dispatch(setLessons(lessons!));
     }
   }, [isLoading]);
-
-
+  
   return (
     <AppLayout>
       <Container>

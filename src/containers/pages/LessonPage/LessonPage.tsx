@@ -92,6 +92,7 @@ export const LessonPage: React.FC<LessonPageProps> = (props) => {
     dispatch(AddUserPracticeOrder({ codeFile: userCode!, lessonId: lesson?.id.toString()!, userId: user?.id.toString()! }));
   }
 
+  if(loading == false && Boolean(lesson) == false) return <Redirect to={appRoutes.Lessons} />
 
   return (
     <AppLayout>
